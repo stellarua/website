@@ -76,10 +76,11 @@ jobs:
             --site "${{ steps.pages.outputs.origin }}" \
             --base "${{ steps.pages.outputs.base_path }}"
         working-directory: ${{ env.BUILD_PATH }}
-      # - name: Upload artifact
-      #   uses: actions/upload-pages-artifact@v3
-      #   with:
-      #     path: ${{ env.BUILD_PATH }}/dist
+      - name: Upload dist artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist-folder
+          path: ${{ env.BUILD_PATH }}/dist
 
   deploy:
     environment:
