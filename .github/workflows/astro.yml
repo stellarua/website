@@ -80,7 +80,7 @@ jobs:
       - name: Upload dist artifact
         working-directory: ${{ env.BUILD_PATH }}
         env:
-          GH_PAT: ${{ secrets.GH_TOKEN }}
+          GH_PAT: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
@@ -97,7 +97,7 @@ jobs:
       - name: Push new branch
         working-directory: ${{ env.BUILD_PATH }}
         env:
-          GH_PAT: ${{ secrets.GH_TOKEN }}
+          GH_PAT: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git remote set-url origin https://x-access-token:${GH_PAT}@github.com/${{ github.repository }}
           git push origin pages --force
