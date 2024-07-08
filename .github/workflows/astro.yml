@@ -92,11 +92,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Create new branch
+        working-directory: ${{ env.BUILD_PATH }}
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git checkout -b pages  # Adjust this to your new branch name
       - name: Copy dist files to new branch
+        working-directory: ${{ env.BUILD_PATH }}
         run: |
           git checkout pages
           git rm -rf .
@@ -104,4 +106,5 @@ jobs:
           git add .
           git commit -m "Deploy dist files to new branch"
       - name: Push new branch
+        working-directory: ${{ env.BUILD_PATH }}
         run: git push origin pages --force
