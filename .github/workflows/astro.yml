@@ -96,4 +96,10 @@ jobs:
           git commit -m "Deploy dist files to new branch"
       - name: Push new branch
         working-directory: ${{ env.BUILD_PATH }}
-        run: git push pages pages --force
+        env:
+          GH_PAT: ${{ secrets.GH_TOKEN }}
+        run: |
+          git config --global user.name "Eugen263"
+          git config --global user.email "kupulenko29@gmail.com"
+          git remote add pages https://$GH_PAT@github.com/${{ github.repository }}
+          git push pages pages --force
