@@ -94,4 +94,5 @@ jobs:
         with:
           path: ${{ env.BUILD_PATH }}/dist
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          commit_message: Replaced foo with bar
+          commit_message: updates
+          target_branch: pages
