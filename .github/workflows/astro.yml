@@ -46,6 +46,9 @@ jobs:
           echo "CONTENTFUL_SPACE_ID=${{ env.CONTENTFUL_SPACE_ID }}" > .env
           echo "CONTENTFUL_DELIVERY_TOKEN=${{ env.CONTENTFUL_DELIVERY_TOKEN }}" >> .env
           echo "CONTENTFUL_PREVIEW_TOKEN=${{ env.CONTENTFUL_PREVIEW_TOKEN }}" >> .env
+      - name: No jekyll file
+        working-directory: ${{ env.BUILD_PATH }}
+        run: touch dist/.nojekyll
       - name: Detect package manager
         id: detect-package-manager
         run: |
@@ -77,13 +80,13 @@ jobs:
       - name: Build with Astro
         run: npm run build
         working-directory: ${{ env.BUILD_PATH }}
+      - name: Build clenup
+        run: rm .env && rm -r node_modules && rm -r .astro
       - name: Upload dist artifact
         working-directory: ${{ env.BUILD_PATH }}
-        env:
-          GH_PAT: ${{ secrets.GH_TOKEN }}
         run: |
-          git config --global user.name "Eugen263"
-          git config --global user.email "kupulenko29@gmail.com"
+          # git config --global user.name "Eugen263"
+          # git config --global user.email "kupulenko29@gmail.com"
           git checkout -b pages  # Adjust this to your new branch name
       - name: Copy dist files to new branch
         working-directory: ${{ env.BUILD_PATH }}
@@ -95,8 +98,6 @@ jobs:
           git commit -m "Deploy dist files to new branch"
       - name: Push new branch
         working-directory: ${{ env.BUILD_PATH }}
-        env:
-          GH_PAT: ${{ secrets.GH_TOKEN }}
         run: |
           git remote add pages https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
           git push pages pages --force
