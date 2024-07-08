@@ -84,7 +84,7 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git remote set-url origin https://x-access-token:${{ secrets.GH_PAT }}@github.com/${{ github.repository }}
+          git remote set-url origin https://Eugen263:${{ secrets.GH_PAT }}@github.com/${{ github.repository }}
           git checkout -b pages  # Adjust this to your new branch name
       - name: Copy dist files to new branch
         working-directory: ${{ env.BUILD_PATH }}
@@ -98,36 +98,4 @@ jobs:
         working-directory: ${{ env.BUILD_PATH }}
         env:
           GH_PAT: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          git remote set-url origin https://x-access-token:${GH_PAT}@github.com/${{ github.repository }}
-          git push origin pages --force
-
-  # deploy:
-  #   environment:
-  #     name: github-pages
-  #   needs: build
-  #   runs-on: ubuntu-latest
-  #   name: Deploy
-  #   steps:
-  #     - name: Checkout repository
-  #       uses: actions/checkout@v4
-  #     - name: folder list
-  #       working-directory: ${{ env.BUILD_PATH }}
-  #       run: ls -la
-  #     - name: Create new branch
-  #       working-directory: ${{ env.BUILD_PATH }}
-  #       run: |
-  #         git config --global user.name "github-actions[bot]"
-  #         git config --global user.email "github-actions[bot]@users.noreply.github.com"
-  #         git checkout -b pages  # Adjust this to your new branch name
-  #     - name: Copy dist files to new branch
-  #       working-directory: ${{ env.BUILD_PATH }}
-  #       run: |
-  #         git checkout pages
-  #         git rm -rf .
-  #         cp -r dist/* .
-  #         git add .
-  #         git commit -m "Deploy dist files to new branch"
-  #     - name: Push new branch
-  #       working-directory: ${{ env.BUILD_PATH }}
-  #       run: git push origin pages --force
+        run: git push origin pages --force
