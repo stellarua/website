@@ -91,6 +91,8 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: devops-infra/action-commit-push@master
+        env:
+          BUILD_PATH: ${{ env.BUILD_PATH }}/dist
         with:
           path: ${{ env.BUILD_PATH }}/dist
           github_token: ${{ secrets.GITHUB_TOKEN }}
