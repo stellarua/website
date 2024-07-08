@@ -97,6 +97,7 @@ jobs:
           git checkout pages
           git rm -rf .
           cp -r dist/* .
+          git rm -rf dist
           git add .
           git commit -m "Deploy dist files to new branch"
       - name: Push new branch
