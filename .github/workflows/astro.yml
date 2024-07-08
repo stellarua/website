@@ -98,5 +98,5 @@ jobs:
         env:
           GH_PAT: ${{ secrets.GH_TOKEN }}
         run: |
-          git remote add pages https:// ${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+          git remote add pages https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
           git push pages pages --force
