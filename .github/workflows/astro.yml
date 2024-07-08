@@ -73,14 +73,26 @@ jobs:
       - name: Build with Astro
         run: |
           ${{ steps.detect-package-manager.outputs.runner }} astro build \
-            --site "${{ steps.pages.outputs.origin }}" \
             --base "${{ steps.pages.outputs.base_path }}"
         working-directory: ${{ env.BUILD_PATH }}
-      # - name: Upload dist artifact
-      #   uses: actions/upload-artifact@v3
-      #   with:
-      #     name: dist-folder
-      #     path: ${{ env.BUILD_PATH }}/dist
+      - name: folder list
+        working-directory: ${{ env.BUILD_PATH }}
+        run: ls -la
+      - name: Upload dist artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist-folder
+          path: ${{ env.BUILD_PATH }}/dist
+
+  deploy:
+    environment:
+      name: github-pages
+    needs: build
+    runs-on: ubuntu-latest
+    name: Deploy
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
       - name: folder list
         working-directory: ${{ env.BUILD_PATH }}
         run: ls -la
@@ -93,37 +105,11 @@ jobs:
       - name: Copy dist files to new branch
         working-directory: ${{ env.BUILD_PATH }}
         run: |
+          git checkout pages
           git rm -rf .
           cp -r dist/* .
           git add .
-          git commit -m "Deploy artifacts"
+          git commit -m "Deploy dist files to new branch"
       - name: Push new branch
         working-directory: ${{ env.BUILD_PATH }}
         run: git push origin pages --force
-
-  # deploy:
-  #   environment:
-  #     name: github-pages
-  #   needs: build
-  #   runs-on: ubuntu-latest
-  #   name: Deploy
-  #   steps:
-  #     - name: Checkout repository
-  #       uses: actions/checkout@v4
-  #     - name: Create new branch
-  #       working-directory: ${{ env.BUILD_PATH }}
-  #       run: |
-  #         git config --global user.name "github-actions[bot]"
-  #         git config --global user.email "github-actions[bot]@users.noreply.github.com"
-  #         git checkout -b pages  # Adjust this to your new branch name
-  #     - name: Copy dist files to new branch
-  #       working-directory: ${{ env.BUILD_PATH }}
-  #       run: |
-  #         git checkout pages
-  #         git rm -rf .
-  #         cp -r dist/* .
-  #         git add .
-  #         git commit -m "Deploy dist files to new branch"
-  #     - name: Push new branch
-  #       working-directory: ${{ env.BUILD_PATH }}
-  #       run: git push origin pages --force
