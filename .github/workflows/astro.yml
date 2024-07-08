@@ -84,7 +84,7 @@ jobs:
         run: |
           git config --global user.name "Eugen263"
           git config --global user.email "kupulenko29@gmail.com"
-          git remote set-url origin https://Eugen263:${{ secrets.GH_PAT }}@github.com/${{ github.repository }}
+          git remote set-url origin https://${{ secrets.GH_PAT }}@github.com/${{ github.repository }}.git
           git checkout -b pages  # Adjust this to your new branch name
       - name: Copy dist files to new branch
         working-directory: ${{ env.BUILD_PATH }}
