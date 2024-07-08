@@ -88,12 +88,19 @@ jobs:
     runs-on: ubuntu-latest
     name: Deploy
     steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: devops-infra/action-commit-push@master
-        env:
-          BUILD_PATH: ${{ env.BUILD_PATH }}/dist
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          commit_message: updates
-          target_branch: pages
+      - name: Create new branch
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -b pages  # Adjust this to your new branch name
+
+      - name: Copy dist files to new branch
+        run: |
+          git checkout pages
+          git rm -rf .
+          cp -r dist/* .
+          git add .
+          git commit -m "Deploy dist files to new branch"
+  
+      - name: Push new branch
+        run: git push origin pages --force
