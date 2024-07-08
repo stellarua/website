@@ -81,6 +81,9 @@ jobs:
       #   with:
       #     name: dist-folder
       #     path: ${{ env.BUILD_PATH }}/dist
+      - name: folder list
+        working-directory: ${{ env.BUILD_PATH }}
+        run: ls -la
       - name: Create new branch
         working-directory: ${{ env.BUILD_PATH }}
         run: |
