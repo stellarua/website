@@ -37,7 +37,7 @@ jobs:
         uses: actions/checkout@v4
       - name: Write file
         env:
-          ENV: ${{ secrets.ENV }}
+          ENV: ${{ secrets.CONTENTFUL_SPACE_ID }} \n ${{ secrets.CONTENTFUL_DELIVERY_TOKEN }} \n ${{ secrets.CONTENTFUL_PREVIEW_TOKEN }}
         run: echo $ENV > .env
       - name: Detect package manager
         id: detect-package-manager
