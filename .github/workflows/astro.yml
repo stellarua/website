@@ -84,7 +84,6 @@ jobs:
         run: |
           git config --global user.name "Eugen263"
           git config --global user.email "kupulenko29@gmail.com"
-          git remote add pages https://$GH_PAT@github.com/${{ github.repository }}
           git checkout -b pages  # Adjust this to your new branch name
       - name: Copy dist files to new branch
         working-directory: ${{ env.BUILD_PATH }}
@@ -99,7 +98,5 @@ jobs:
         env:
           GH_PAT: ${{ secrets.GH_TOKEN }}
         run: |
-          git config --global user.name "Eugen263"
-          git config --global user.email "kupulenko29@gmail.com"
           git remote add pages https://$GH_PAT@github.com/${{ github.repository }}
           git push pages pages --force
