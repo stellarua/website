@@ -29,7 +29,7 @@ export function getStaticPaths () {
     <section class="contact-us">
         <div class="container">
             <div class="form-wrapper">
-                <form class="form" action="https://formsubmit.co/b1b63a99bb9c6e4ec07dfa3d58fef7f1" method="POST">
+                <form class="form" action="https://api.form-data.com/f/6wz6nrzy1o2dx5w8jtbavu" method="post">
                     <div class="form-controls__grid">
                         <div class="form-control">
                             <label for="inpName">Your name</label>
@@ -89,7 +89,12 @@ export function getStaticPaths () {
                             placeholder="Enter your message"></textarea>
                     </div>
                     <button class="btn btn-submit" type="submit">Send</button>
+                    <div class="form-data-powered-by" data-formdata-lang="en" data-formdata-sitename="Super Store" data-formdata-theme="light"></div>
                 </form>
+                <script>
+                    // @ts-ignore
+                    _fd.scan()
+                </script>
             </div>
 
             <div class="contacts text-center">
@@ -172,6 +177,8 @@ export function getStaticPaths () {
         import "../../scripts/select.js";    
     </script>
 </Layout>
+
+
 
 <style>
     .hero {
