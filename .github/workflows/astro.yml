@@ -82,6 +82,9 @@ jobs:
         working-directory: ${{ env.BUILD_PATH }}
       - name: Build clenup
         run: rm .env && rm -r node_modules && rm -r .astro
+      - name: Attach CNAME record to repo
+        working-directory: ${{ env.BUILD_PATH }}
+        run: ${{ env.DOMAIN }} > CNAME
       - name: Upload dist artifact
         working-directory: ${{ env.BUILD_PATH }}
         run: |
