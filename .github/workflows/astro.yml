@@ -37,11 +37,13 @@ jobs:
         uses: actions/checkout@v4
       - name: Write file
         env:
-          ENV: |
-            CONTENTFUL_SPACE_ID='${{ secrets.CONTENTFUL_SPACE_ID }}' \ 
-            CONTENTFUL_DELIVERY_TOKEN='${{ secrets.CONTENTFUL_DELIVERY_TOKEN }}' \
-            CONTENTFUL_PREVIEW_TOKEN='${{ secrets.CONTENTFUL_PREVIEW_TOKEN }}'
-        run: echo $ENV > .env
+          CONTENTFUL_SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
+          CONTENTFUL_DELIVERY_TOKEN: ${{ secrets.CONTENTFUL_DELIVERY_TOKEN }}
+          CONTENTFUL_PREVIEW_TOKEN: ${{ secrets.CONTENTFUL_PREVIEW_TOKEN }}
+        run: |
+          echo "CONTENTFUL_SPACE_ID=${{ env.CONTENTFUL_SPACE_ID }}" > .env
+          echo "CONTENTFUL_DELIVERY_TOKEN=${{ env.CONTENTFUL_DELIVERY_TOKEN }}" >> .env
+          echo "CONTENTFUL_PREVIEW_TOKEN=${{ env.CONTENTFUL_PREVIEW_TOKEN }}" >> .env
       - name: Detect package manager
         id: detect-package-manager
         run: |
