@@ -90,11 +90,10 @@ jobs:
       - name: Copy dist files to new branch
         working-directory: ${{ env.BUILD_PATH }}
         run: |
-          git checkout pages
           git rm -rf .
           cp -r dist/* .
           git add .
-          git commit -m "Deploy dist files to new branch"
+          git commit -m "Deploy artifacts"
       - name: Push new branch
         working-directory: ${{ env.BUILD_PATH }}
         run: git push origin pages --force
