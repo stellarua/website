@@ -93,7 +93,11 @@ jobs:
           git commit -m "Deploy dist files to new branch"
       - name: Push new branch
         working-directory: ${{ env.BUILD_PATH }}
-        run: git push origin pages --force
+        env:
+          GH_PAT: ${{ secrets.GH_TOKEN }}
+        run: |
+          git remote set-url origin https://x-access-token:${GH_PAT}@github.com/${{ github.repository }}
+          git push origin pages --force
 
   # deploy:
   #   environment:
