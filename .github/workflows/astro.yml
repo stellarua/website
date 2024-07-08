@@ -48,7 +48,7 @@ jobs:
           echo "CONTENTFUL_PREVIEW_TOKEN=${{ env.CONTENTFUL_PREVIEW_TOKEN }}" >> .env
       - name: No jekyll file
         working-directory: ${{ env.BUILD_PATH }}
-        run: touch dist/.nojekyll
+        run: touch .nojekyll
       - name: Detect package manager
         id: detect-package-manager
         run: |
@@ -78,7 +78,7 @@ jobs:
         run: npm i
         working-directory: ${{ env.BUILD_PATH }}
       - name: Build with Astro
-        run: npm run build
+        run: npm run build && touch dist/.nojekyll
         working-directory: ${{ env.BUILD_PATH }}
       - name: Build clenup
         run: rm .env && rm -r node_modules && rm -r .astro
