@@ -88,12 +88,13 @@ jobs:
     runs-on: ubuntu-latest
     name: Deploy
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
       - name: Create new branch
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git checkout -b pages  # Adjust this to your new branch name
-
       - name: Copy dist files to new branch
         run: |
           git checkout pages
@@ -101,6 +102,5 @@ jobs:
           cp -r dist/* .
           git add .
           git commit -m "Deploy dist files to new branch"
-  
       - name: Push new branch
         run: git push origin pages --force
