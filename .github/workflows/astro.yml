@@ -38,7 +38,7 @@ jobs:
       - name: Write file
         env:
           ENV: ${{ secrets.ENV }}
-        run: $ENV >> .env
+        run: echo $ENV > .env
       - name: Detect package manager
         id: detect-package-manager
         run: |
