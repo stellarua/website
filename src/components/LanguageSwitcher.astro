@@ -1,0 +1,56 @@
+---
+const {lang} = Astro.params
+
+---
+
+<ul lang={lang} class="language-switcher">
+    <li id="uaBtn" class={lang === "uk" ? "active" : ""}>UA</li>
+    <li id="enBtn" class={lang === "en-US" ? "active" : ""}>ENG</li>
+</ul>
+
+<script>
+    const lang=  document.querySelector('ul')
+    const buttons = document.querySelectorAll('li');
+  
+    const changeLang = (newLang: string) => {
+    const url = new URL(window.location.href);
+    url.pathname = url.pathname.replace(`/${lang?.lang}`, `/${newLang}`);
+    window.location.href = url.toString();
+  };
+
+    buttons.forEach((button) => {
+        if (button.id === 'uaBtn') {
+            button.addEventListener('click', () => {
+                changeLang('uk')
+            });
+        } else if (button.id === 'enBtn') {
+            button.addEventListener('click', () => {
+                changeLang('en-US')
+            });
+        }
+    });
+  </script>
+
+<style>
+    .language-switcher {
+        display: flex;
+        align-items: baseline;
+        gap: 0.5em;
+
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    .language-switcher li {
+        font-weight: 400;
+        line-height: 25.6px;
+        color: #3B66D4;
+        transition: 0.5s ease;
+        cursor: pointer;
+    }
+    .language-switcher li:hover,
+    .language-switcher li.active {
+        color: #FFD600;
+    }
+</style>
+

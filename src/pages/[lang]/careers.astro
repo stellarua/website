@@ -1,0 +1,302 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import CareersList from "../../components/CareersList.astro"
+import DonateNow from "../../components/DonateNow.astro";
+import News from "../../components/News.astro";
+
+export function getStaticPaths () {
+ return [
+    {params: {lang: 'en-US'}},
+    {params: {lang: 'uk'}},
+  ];
+}
+
+
+---
+
+<Layout>
+    <section class="hero">
+        <div class="container text-center">
+            <h1 class="section__title">Join Us, Let's Grow Together</h1>
+            <div class="section__text">
+                <p>
+                    Open positions are constantly being updated, don't hesitate
+                    to come take look if something's new. You can also send us
+                    your CV if you're interested for a job that is not listed.
+                </p>
+            </div>
+        </div>
+    </section>
+    <section class="careers-img">
+        <div class="container">
+            <div class="careers-img__wrapper">
+                <img src="/images/team.png" alt="" />
+            </div>
+        </div>
+    </section>
+    <section class="vacancy text-center">
+        <div class="container">
+            <h2 class="section__title">Open positions</h2>
+            <div class="section__text">
+                <p>
+                    Dive into heartfelt testimonials and uplifting stories that
+                    highlight the real impact of our work.
+                </p>
+            </div>
+        </div>
+        <div class="container container-tabs">
+            <div class="vacancy-tabs">
+                <CareersList/>
+            </div>
+        </div>
+        <div class="container">
+            <div class="vacancy-text">
+                <p>
+                    If you didn't spot the perfect job this time, no worries!
+                    Follow us on social media for updates on new opportunities.
+                    Your unique skills might be just what we need.
+                </p>
+                <p>
+                    <strong
+                        >Feel free to reach out directly - we're always open to
+                        exploring how you can contribute to our team.</strong
+                    >
+                </p>
+            </div>
+
+            <div class="contacts">
+                <a
+                    href="mailto:volunteer@stellarua.org"
+                    class="social-link social-link--mob"
+                >
+                    <svg
+                        width="26"
+                        height="21"
+                        viewBox="0 0 26 21"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <g clip-path="url(#clip0_192_2797)">
+                            <path
+                                d="M26 2.47509C26 1.11353 24.8629 0.00976562 23.4603 0.00976562H2.53968C1.13705 0.00976562 0 1.11353 0 2.47509V18.5444C0 19.906 1.13705 21.0098 2.53968 21.0098H23.4603C24.8629 21.0098 26 19.906 26 18.5444V2.47509ZM2.55329 1.97991H23.4802C23.7603 1.97991 23.9858 2.19675 23.9858 2.46866V2.49005L13.3754 12.7909C13.246 12.9165 13.0955 12.9353 13.0169 12.9353C12.9383 12.9353 12.7873 12.9165 12.6578 12.7909L2.04494 2.48865V2.46866C2.04494 2.19675 2.27321 1.97991 2.55329 1.97991ZM23.4802 19.0396H2.55329C2.27321 19.0396 2.04494 18.8145 2.04494 18.5426V5.27784L11.2215 14.1855C11.7011 14.6512 12.339 14.9076 13.0174 14.9076C13.6958 14.9075 14.3324 14.6511 14.8121 14.1855L23.9858 5.27923V18.5426C23.9858 18.8145 23.7603 19.0396 23.4802 19.0396Z"
+                                fill="currentColor"></path>
+                        </g>
+                        <defs>
+                            <clipPath id="clip0_192_2797">
+                                <rect
+                                    width="26"
+                                    height="21"
+                                    fill="currentColor"
+                                    transform="translate(0 0.00976562)"></rect>
+                            </clipPath>
+                        </defs>
+                    </svg>
+
+                    volunteer@stellarua.org
+                </a>
+                <a
+                    href="https://www.instagram.com/stellar.ukraine/"
+                    class="social-link social-link--mob"
+                    target="_blank"
+                >
+                    <svg
+                        width="26"
+                        height="26"
+                        viewBox="0 0 26 26"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                            d="M19 0.00976562H7C3.14 0.00976562 0 3.14977 0 7.00977V19.0098C0 22.8698 3.14 26.0098 7 26.0098H19C22.86 26.0098 26 22.8698 26 19.0098V7.00977C26 3.14977 22.86 0.00976562 19 0.00976562ZM24 19.0098C24 21.7668 21.757 24.0098 19 24.0098H7C4.243 24.0098 2 21.7668 2 19.0098V7.00977C2 4.25277 4.243 2.00977 7 2.00977H19C21.757 2.00977 24 4.25277 24 7.00977V19.0098ZM13 7.00977C9.691 7.00977 7 9.70077 7 13.0098C7 16.3188 9.691 19.0098 13 19.0098C16.309 19.0098 19 16.3188 19 13.0098C19 9.70077 16.309 7.00977 13 7.00977ZM13 17.0098C10.794 17.0098 9 15.2158 9 13.0098C9 10.8038 10.794 9.00977 13 9.00977C15.206 9.00977 17 10.8038 17 13.0098C17 15.2158 15.206 17.0098 13 17.0098ZM21 6.50977C21 7.33777 20.328 8.00977 19.5 8.00977C18.672 8.00977 18 7.33777 18 6.50977C18 5.68177 18.672 5.00977 19.5 5.00977C20.328 5.00977 21 5.68177 21 6.50977Z"
+                            fill="currentColor"></path>
+                    </svg>
+
+                    @StellarUA
+                </a>
+                <a href="tel:+380938912989" class="phone-link social-link--mob"
+                    >+38 (093) 891 29 89</a
+                >
+                <p class="address">UA 79000 Lviv, Chervonoj Kalyny ave., 58</p>
+            </div>
+        </div>
+    </section>
+    <DonateNow />
+    <section class="news">
+        <div class="container">
+            <h2 class="section__title text-center">Related articles</h2>
+            <div class="section__text text-center">
+                <p>
+                    Discover the latest updates and inspiring stories showcasing
+                    the positive impact of your support.
+                </p>
+            </div>
+        </div>
+
+        <div class="news-wrapper">
+            <div class="container">
+                <News />
+            </div>
+        </div>
+    </section>
+
+
+
+</Layout>
+
+<style>
+    .hero {
+        background: #073abe;
+        color: #fff;
+        padding: 114px 0 110px;
+        margin-bottom: -80px;
+    }
+    .hero .container {
+        max-width: 860px;
+        text-align: center;
+    }
+    .hero .section__text {
+        color: #fff;
+        font-size: 16px;
+        line-height: 1.6em;
+        max-width: 100%;
+        margin-bottom: 0;
+    }
+
+    .hero h1 {
+        font-size: 24px;
+        line-height: 1.4em;
+    }
+
+    .hero .section__text p:last-child {
+        margin-bottom: 0;
+    }
+    .careers-img {
+        margin-bottom: 30px;
+    }
+    .careers-img__wrapper {
+        padding-top: 50%;
+        height: 0;
+        position: relative;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .careers-img__wrapper img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        max-width: 100%;
+        height: 100%;
+        max-height: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
+
+    .vacancy-tabs {
+        margin: 30px auto 30px;
+        box-shadow: 0px 4px 58.5px 0px #d6d6d6;
+    }
+    .vacancy .container {
+        max-width: 670px;
+    }
+    .vacancy .container-tabs {
+        max-width: 100%;
+        /* overflow: hidden; */
+        padding: 0;
+    }
+    .vacancy .section__text {
+        max-width: 487px;
+        margin: 0 auto;
+    }
+    .vacancy-text {
+        color: #a18458;
+        max-width: 487px;
+        margin: 0 auto 30px;
+        font-size: 14px;
+    }
+    .social-link {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        margin: 0 auto;
+    }
+    .phone-link {
+        font-size: 24px;
+        line-height: 1.8em;
+        font-weight: 700;
+        display: inline-block;
+        margin: 0 auto;
+    }
+    .contacts {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 12px;
+        margin-bottom: 30px;
+    }
+    .news .section__text {
+        margin: auto;
+        color: #979797;
+    }
+    .news-wrapper {
+        position: relative;
+        padding-bottom: 5px;
+    }
+    .news-wrapper::before {
+        content: "";
+        position: absolute;
+        top: 30px;
+        left: 0;
+        right: 0;
+        bottom: -5px;
+        background: #000;
+    }
+
+    @media (min-width: 769px) {
+        .hero {
+            padding: 195px 0 140px;
+        }
+        .hero h1 {
+            font-size: 40px;
+        }
+        .hero .section__text {
+            font-size: 24px;
+            line-height: 1.5em;
+        }
+        .careers-img {
+            margin-bottom: 60px;
+        }
+        .vacancy-text {
+            margin: 0 auto 60px;
+        }
+        .contacts {
+            margin-bottom: 60px;
+        }
+        .news-wrapper::before {
+            top: 60px;
+            background: url(/images/news-bg.svg), #000;
+            background-repeat: no-repeat;
+            background-position: top right;
+        }
+        .news-wrapper .container::after {
+            content: "";
+            display: block;
+            height: 1px;
+            width: 100%;
+            background: #414141;
+            position: relative;
+            z-index: 111;
+        }
+        .vacancy .container-tabs {
+            max-width: 670px;
+            overflow: unset;
+            padding: 0 30px;
+        }
+        .vacancy-tabs {
+            margin: 40px auto 60px;
+            border-radius: 10px;
+        }
+    }
+</style>

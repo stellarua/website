@@ -1,0 +1,88 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import BlogElements from "../../../components/BlogElements.astro"
+import { getCollection } from "astro:content";
+
+const posts = (await getCollection("blog")).sort(
+    (a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf(),
+);
+
+export function getStaticPaths () {
+ return [
+    {params: {lang: 'en-US'}},
+    {params: {lang: 'uk'}},
+  ];
+}
+---
+
+<Layout>
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>News & Features</h1>
+            </div>
+        </section>
+        <section>
+            <div class="container">
+                <div class="articles">
+                    <BlogElements/>
+                </div>
+            </div>
+        </section>
+    </main>
+</Layout>
+
+<style>
+    .hero {
+        background: #073abe;
+        color: #fff;
+        padding: 114px 0 110px;
+        margin-bottom: 60px;
+    }
+    .hero .container {
+        max-width: 860px;
+        text-align: center;
+    }
+    .hero .section__text {
+        color: #fff;
+        font-size: 16px;
+        line-height: 1.6em;
+        max-width: 100%;
+        margin-bottom: 0;
+    }
+
+    .hero h1 {
+        font-size: 24px;
+        line-height: 1.4em;
+    }
+
+    .hero .section__text p:last-child {
+        margin-bottom: 0;
+    }
+
+    .articles {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 30px;
+
+        margin: 60px 0;
+    }
+
+    @media (min-width: 769px) {
+        .hero {
+            padding: 195px 0 140px;
+        }
+        .hero h1 {
+            font-size: 40px;
+        }
+        .hero .section__text {
+            font-size: 24px;
+            line-height: 1.5em;
+        }
+
+        .articles {
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+        
+    }
+</style>

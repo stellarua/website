@@ -1,0 +1,27 @@
+---
+import {getStaticPaths} from '../contentful/careers'
+import VacancyTab from '../layouts/VacancyTab.astro'
+
+const { paths } = await getStaticPaths();
+const currentLocale = Astro.params.lang; // Получите текущую локализацию из параметров маршрута
+const vacancies = paths
+  .filter((path:any) => path.props.locale === currentLocale)
+  .map((path:any) => path.props.vacancy);
+---
+
+<div>
+{
+    vacancies.map(
+        (entry:any) => 
+            <VacancyTab
+                title={entry.career}
+                jobType={entry.employmentForm}
+                location={entry.city}
+                link={'#'}
+            >
+                <article set:html={entry.description} />
+            </VacancyTab>
+        
+        )
+}
+</div>

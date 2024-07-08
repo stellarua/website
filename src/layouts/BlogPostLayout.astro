@@ -1,0 +1,114 @@
+---
+import Layout from "./Layout.astro";
+import '../styles/article.css';
+import DonateNow from "../components/DonateNow.astro";
+import News from "../components/News.astro";
+import SocialShareBtns from "../components/SocialShareBtns.astro";
+
+import FormattedDate from "../components/FormattedDate.astro";
+
+
+
+const { title, description, pubDate, author, photo, photoTitle } = Astro.props;
+
+---
+
+<Layout>
+    <article>
+        <div class={ photo ? "hero has-image" : "hero" }>
+
+            <div class="container">
+                <p class="section__subtitle"></p>
+
+                <h1 class="section__title text-center">
+                    {title}
+                </h1>
+                <div class="section__text text-center">
+                    {description}
+                </div>
+
+                <div class="section__footer">
+                    <span class="date">
+                        <!-- <FormattedDate date={pubDate} /> -->
+                        {pubDate}
+                    </span>
+                    <span>•</span>
+                    <span class="share">
+                        <svg
+                            fill="currentColor"
+                            width="14px"
+                            height="14px"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path
+                                d="M13.52,7.17V2.91a0.63,0.63,0,0,1,1-.51l9.22,7.46a0.61,0.61,0,0,1,0,1L14.5,18.34a0.63,0.63,0,0,1-1-.51V13.88c-5.76,0-10.65,2.57-12.44,7a11.29,11.29,0,0,1-.16-1.82C0.91,12.5,6.55,7.17,13.52,7.17Z"
+                            ></path>
+                        </svg>
+                    </span>
+                </div>
+            </div>
+            <div class="hero-img container">
+                <figure>
+                    <img
+                        src={photo}
+                        alt="Photo: Mauricio Lima for The New York Times"
+                    />
+                    <figcaption>
+                        {photoTitle}
+                    </figcaption>
+                </figure>
+            </div>
+        </div>
+
+        <div class="article-main">
+            <div class="container">
+                <div class="rte">
+                    <slot/>
+                </div>
+
+                <div class="rte article-footer">
+                    <SocialShareBtns />
+        
+                    <p class="gray">
+                        <span class="date">
+                            <!-- <FormattedDate date={pubDate}> -->
+                             {pubDate}
+                                </span> by <span
+                            class="author">{author}</span
+                        >
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        
+    </article>
+    <DonateNow />
+    <section class="news">
+        <div class="container">
+            <h2 class="section__title text-center">Related articles</h2>
+            <div class="section__text text-center">
+                <p>
+                    Discover the latest updates and inspiring stories showcasing
+                    the positive impact of your support.
+                </p>
+            </div>
+        </div>
+
+        <div class="news-wrapper">
+            <div class="container">
+                <News />
+            </div>
+        </div>
+    </section>
+</Layout>
+
+<script is:inline>
+    const articleImgs = document.querySelectorAll('.rte img');
+    articleImgs.forEach((img)=> {
+        let wrapper = document.createElement('figure');
+        img.parentNode.insertBefore(wrapper, img);
+        wrapper.appendChild(img);
+    });
+</script>

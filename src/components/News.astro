@@ -1,0 +1,97 @@
+---
+import BlogElements from "../components/BlogElements.astro"
+---
+
+<div id="newsSlider" class="swiper">
+    <div class="swiper-wrapper" data-cursor="swipe">
+        <BlogElements arrLen={2}/>
+    </div>
+    <div class="su-slider__arrows news-arrows">
+        <button class="btn su-slider__arrow news__arrow prev">
+            <svg
+                width="10"
+                height="17"
+                viewBox="0 0 10 17"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+            >
+                <path
+                    d="M9.74512 8.6543C9.73633 8.29395 9.61328 7.99512 9.32324 7.71387L2.55566 1.0957C2.33594 0.867188 2.06348 0.761719 1.72949 0.761719C1.07031 0.761719 0.542969 1.28027 0.542969 1.93945C0.542969 2.26465 0.674805 2.56348 0.912109 2.80078L6.92383 8.64551L0.912109 14.5078C0.674805 14.7451 0.542969 15.0352 0.542969 15.3691C0.542969 16.0283 1.07031 16.5557 1.72949 16.5557C2.05469 16.5557 2.33594 16.4414 2.55566 16.2129L9.32324 9.59473C9.61328 9.31348 9.74512 9.01465 9.74512 8.6543Z"
+                    fill="currentColor"></path>
+            </svg>
+        </button>
+        <button class="btn su-slider__arrow news__arrow next">
+            <svg
+                width="10"
+                height="17"
+                viewBox="0 0 10 17"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+            >
+                <path
+                    d="M9.74512 8.6543C9.73633 8.29395 9.61328 7.99512 9.32324 7.71387L2.55566 1.0957C2.33594 0.867188 2.06348 0.761719 1.72949 0.761719C1.07031 0.761719 0.542969 1.28027 0.542969 1.93945C0.542969 2.26465 0.674805 2.56348 0.912109 2.80078L6.92383 8.64551L0.912109 14.5078C0.674805 14.7451 0.542969 15.0352 0.542969 15.3691C0.542969 16.0283 1.07031 16.5557 1.72949 16.5557C2.05469 16.5557 2.33594 16.4414 2.55566 16.2129L9.32324 9.59473C9.61328 9.31348 9.74512 9.01465 9.74512 8.6543Z"
+                    fill="currentColor"></path>
+            </svg>
+        </button>
+    </div>
+</div>
+
+<script>
+    import Swiper from "swiper/bundle";
+    import "swiper/css/bundle";
+    new Swiper("#newsSlider", {
+        // Setup
+        slidesPerView: 1,
+        spaceBetween: 30,
+
+        navigation: {
+            nextEl: ".news__arrow.next",
+            prevEl: ".news__arrow.prev",
+        },
+        breakpoints: {
+            769: {
+                slidesPerView: 3,
+                spaceBetween: 60,
+                navigation: false,
+            },
+        },
+    });
+</script>
+
+<style>
+    #newsSlider {
+        margin: 30px auto 0;
+        text-align: center;
+    }
+    .news-arrows {
+        margin: 30px auto 0;
+        width: 98px;
+        gap: 10px;
+        height: 44px;
+    }
+    .news__arrow {
+        background: #ffd600;
+        color: #000;
+    }
+    .news__arrow:hover {
+        background: #ffe249;
+    }
+    .news__arrow:active {
+        background: #ffc513;
+    }
+    .news__arrow.prev {
+        border-radius: 6px;
+    }
+    .news__arrow.next {
+        border-radius: 6px;
+    }
+    @media (min-width: 769px) {
+        #newsSlider {
+            margin: 60px auto 90px;
+            text-align: center;
+        }
+        .news-arrows {
+            display: none;
+        }
+    }
+</style>

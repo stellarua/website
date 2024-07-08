@@ -1,0 +1,87 @@
+---
+interface Props {
+    title: string;
+    link: string;
+    image: string;
+    description: string;
+}
+
+const { title, link, image, description } = Astro.props;
+---
+
+<div class="swiper-slide banner-card">
+    <div class="banner-card__img">
+        <img src={image} alt={title} />
+    </div>
+    <div class="banner-card__content">
+        <div class="banner-card__text">{description}</div>
+        <a href={link} class="btn-link yellow banner-card__link">Read Article</a
+        >
+    </div>
+</div>
+
+<style>
+    .banner-card__img {
+        padding-bottom: 105.43131%;
+        height: 0;
+        width: 100%;
+        position: relative;
+        overflow: hidden;
+        border-radius: 10px;
+    }
+    .banner-card__img img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        object-fit: cover;
+        object-position: center;
+        width: 100%;
+        max-width: 100%;
+        height: 100%;
+    }
+    .banner-card__content {
+        color: #fff;
+        background: #000;
+    }
+    .banner-card__text {
+        max-width: 500px;
+        margin: 30px auto;
+    }
+    .banner-card__link {
+        display: inline;
+    }
+
+    @media (min-width: 769px) {
+        .banner-card__img {
+            padding-bottom: 50%;
+        }
+        .banner-card__content {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 50%;
+            min-height: 50%;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 30px 30px 40px;
+            text-align: right;
+            box-sizing: border-box;
+            border-radius: 10px 0 0 0;
+        }
+        .banner-card__text {
+            margin: 0 0 30px;
+        }
+    }
+    @media (min-width: 990px) {
+        .banner-card__img {
+            padding-bottom: 43.333333%;
+        }
+        .banner-card__content {
+            padding: 60px;
+        }
+        .banner-card__text {
+            margin: 0 0 30px;
+        }
+    }
+</style>

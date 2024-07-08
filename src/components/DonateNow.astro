@@ -1,0 +1,51 @@
+<section class="donate">
+    <div class="container">
+        <div class="donate__content">
+            <img src="/images/donate.png" alt="Please make a donate now">
+            <p>It is critical that we support people around Ukraine facing conflict and crises. <a href="/donate">Please make a donate now</a> to support the Stellar's life-changing work.</p>
+        </div>
+    </div>
+</section>
+
+<style>
+    .donate .container {
+        width: calc(100vw - 60px);
+        border-radius: 10px;
+        background: #FFD600;
+        margin: 30px auto;
+        padding: 40px 30px;
+    }
+    .donate__content img {
+        mix-blend-mode: multiply;
+    }
+    .donate__content {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 20px;
+        align-items: center;
+        max-width: 840px;
+        margin: auto;
+
+        line-height: 1.56em;
+        text-align: center;
+    }
+    .donate__content img {
+        max-width: 95px;
+        margin: auto;
+    }
+    .donate__content a {
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    @media (min-width: 769px) {
+        .donate .container {
+            max-width: 1078px;
+            margin: 60px auto;
+        }
+        .donate__content {
+            grid-template-columns: 95px 1fr;
+            text-align: left;
+        }
+    }
+</style>

@@ -1,0 +1,108 @@
+---
+import { contentfulClient } from "../contentful/contentful";
+import Arrow from "./Arrow.astro";
+import BannerSlide from "./BannerSlide.astro";
+import {type MainPageSlider} from "../contentful/types"
+
+
+const {items} = await contentfulClient.getEntries<MainPageSlider>({
+  content_type: "mainPageSlider",
+});
+
+
+---
+
+<div id="homeSlider" class="swiper">
+    <div class="swiper-wrapper" data-cursor="swipe">
+        {
+            items.map((card:any) => (
+                <BannerSlide
+                    title={card.fields.description}
+                    link={'#'}
+                    image={card?.fields.sliderPhoto?.fields.file.url}
+                    description={card.fields.description}
+                />
+            ))
+        }
+        <!-- <BannerSlide
+            title=""
+            link="#"
+            image="/images/bannerSlider/1.png"
+            description="The war in Ukraine continues to have devastating consequences for the civilian population as humanitarian needs persist. The IRC is responding where we are needed most."
+        />
+        <BannerSlide
+            title=""
+            link="#"
+            image="/images/bannerSlider/1.png"
+            description="2 The war in Ukraine continues to have devastating consequences for the civilian population as humanitarian needs persist. The IRC is responding where we are needed most."
+        /> -->
+    </div>
+    <div class="su-slider__arrows banner-arrows">
+        <button class="btn su-slider__arrow banner__arrow prev">
+            <Arrow />
+        </button>
+        <button class="btn su-slider__arrow banner__arrow next">
+            <Arrow />
+        </button>
+    </div>
+</div>
+
+<script>
+    import Swiper from "swiper/bundle";
+    import "swiper/css/bundle";
+    new Swiper("#homeSlider", {
+        slidesPerView: 1,
+        spaceBetween: 60,
+        // effect: 'fade',
+        autoplay: true,
+        speed: 4000,
+        loop: true,
+        navigation: {
+            nextEl: ".banner__arrow.next",
+            prevEl: ".banner__arrow.prev",
+        },
+    });
+</script>
+    
+<style>
+    .banner-arrows {
+        margin: 30px auto 0;
+    }
+    .banner__arrow {
+        background: #ffd600;
+        color: #000;
+    }
+    .banner__arrow:hover {
+        background: #FFE249;
+    }
+    .banner__arrow:active {
+        background: #FFC513;
+    }
+    .banner__arrow.prev {
+        border-radius: 6px;
+    }
+    .banner__arrow.next {
+        border-radius: 6px;
+    }
+    @media (min-width: 769px) {
+        .banner-arrows {
+            position: absolute;
+            bottom: 0;
+            left: calc(50% + 30px);
+            z-index: 2;
+
+            margin: 0;
+        }
+        .banner__arrow.prev {
+            border-radius: 6px 0 0 0;
+        }
+        .banner__arrow.next {
+            border-radius: 0 6px 0 0;
+        }
+    }
+    @media (min-width: 990px) {
+        .banner-arrows {
+            left: calc(50% + 60px);
+        }
+    }
+</style>

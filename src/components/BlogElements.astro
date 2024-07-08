@@ -1,0 +1,33 @@
+---
+import PostCard from "../components/PostCard.astro";
+import { getStaticPaths } from "../contentful/blogElements";
+import type { BlogPost } from '../contentful/types';
+
+const { paths } = await getStaticPaths();
+const {lang} = Astro.params; // Получите текущую локализацию из параметров маршрута
+const postsArr: BlogPost['fields'][] = paths
+  .filter((path:any) => path.props.locale === lang)
+  .map((path:any) => path.props.post);
+
+interface Props {
+  arrLen?: number;
+}
+
+const { arrLen } = Astro.props;
+const filteredPosts = arrLen ? postsArr.slice(0, arrLen) : postsArr;
+
+---
+
+{filteredPosts.map((entry:any) => {
+    const { title, description, slug, photo } = entry;
+    const imageUrl = photo?.fields?.file?.url || '';
+  
+    return (
+      <PostCard
+        image={imageUrl}
+        title={title}
+        link={`/${lang}/blog/${slug}`}
+        description={description}
+      />
+    );
+  })}

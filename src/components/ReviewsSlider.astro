@@ -1,0 +1,57 @@
+---
+import Arrow from "./Arrow.astro";
+import ReviewCard from "./ReviewCard.astro";
+import { getStaticPaths } from "../contentful/reviews";
+import {type Testimonials} from '../contentful/types'
+
+import "../styles/reviewsSlider.css";
+
+
+const { paths } = await getStaticPaths();
+const {lang} = Astro.params;
+const reviewsArr: Testimonials['fields'][] = paths
+  .filter((path) => path.props.locale === lang)
+  .map((path) => path.props.review);
+
+---
+
+<div class="reviews-wrapper">
+    <div class="reviews-controls container">
+        <div class="reviews-filter">
+            <button class="btn reviews-filter__btn">Refugees</button>
+            <button class="btn reviews-filter__btn">Business</button>
+            <button class="btn reviews-filter__btn">Militaries</button>
+        </div>
+        <div class="su-slider__arrows reviews-arrows">
+            <button class="btn su-slider__arrow reviews__arrow prev">
+                <Arrow />
+            </button>
+            <button class="btn su-slider__arrow reviews__arrow next">
+                <Arrow />
+            </button>
+        </div>
+    </div>
+    <div id="reviewsSlider" class="swiper">
+        <div class="swiper-wrapper">
+            {
+                reviewsArr.map((card, index) => {
+                    const { userName, companyName, userAvatar, filterTag, testimonials } = card;
+                    const avatar = userAvatar?.fields?.file?.url || '';
+                    return (
+                    <ReviewCard
+                        name={userName}
+                        company={companyName}
+                        avatar={avatar}
+                        review={testimonials}
+                        filterTag={filterTag}
+                    />
+                )
+                })
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+    import "../scripts/reviewsSlider";
+</script>

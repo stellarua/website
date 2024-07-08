@@ -1,0 +1,39 @@
+---
+import Header from '../components/Header.astro'
+import Footer from '../components/Footer.astro'
+import '../styles/normalize.css'
+import '../styles/global.css'
+
+
+const locale = Astro.params.locale;
+console.log(locale)
+const {headerType} = Astro.props
+---
+<html lang={locale}>
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+        <title>Astro</title>
+
+        <!-- Font preloads -->
+        <link rel="preload" href="/fonts/e-ukraine-light.woff" as="font" type="font/woff" crossorigin />
+        <link rel="preload" href="/fonts/e-ukraine-thin.woff" as="font" type="font/woff" crossorigin />
+        <link rel="preload" href="/fonts/e-ukraine-ultralight.woff" as="font" type="font/woff" crossorigin />
+        <link rel="preload" href="/fonts/e-ukraine-medium.woff" as="font" type="font/woff" crossorigin />
+        <link rel="preload" href="/fonts/e-ukraine-regular.woff" as="font" type="font/woff" crossorigin />
+        <link rel="preload" href="/fonts/e-ukraine-bold.woff" as="font" type="font/woff" crossorigin />
+        <link rel="preload" href="/fonts/e-ukrainehead-light.woff" as="font" type="font/woff" crossorigin />
+        <link rel="preload" href="/fonts/e-ukrainehead-bold.woff" as="font" type="font/woff" crossorigin />
+	
+    </head>
+	<body>
+        <Header headerType={headerType}/>
+		<slot />
+        <Footer/>
+        <script> 
+            import "../scripts/menu.js";
+        </script>
+	</body>
+</html>

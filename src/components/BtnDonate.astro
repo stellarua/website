@@ -1,0 +1,35 @@
+---
+import Arrow from "./Arrow.astro"
+
+const {lang} = Astro.params
+
+---
+
+<a href=`/${lang}/donate` class="btn btnDonate">
+    Donate
+    <Arrow />
+</a>
+
+<style>
+    .btnDonate {
+        background: #FFD600;
+        border-radius: 4px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        text-align: center;
+        height: 41px;
+        padding: 0 15px;
+        font-weight: 700;
+        font-size: 15px;
+        color: #000;
+        transition: 0.5s ease;
+    }
+    .btnDonate:hover {
+        background: #FFE249;
+    }
+    .btnDonate:active {
+        background: #FFC513;
+    }
+</style>

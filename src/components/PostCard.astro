@@ -1,0 +1,74 @@
+---
+// interface Props {
+//     title: string;
+//     link: string;
+//     image: string | any;
+//     description: string;
+// }
+
+const { title, link, image, description } = Astro.props;
+---
+
+<div class="swiper-slide post-card">
+    <div class="post-card__img">
+        <img src={image} alt={title}>
+        <a href={link} title={title}></a>
+    </div>
+    <h3 class="post-card__title">{title}</h3>
+    <div class="post-card__text">{description}</div>
+    <a href={link} class="post-card__link">Read Article</a>
+</div>
+
+<style>
+    .post-card {
+        color: #fff;
+    }
+    .post-card__img {
+        padding-top: 105.555555556%;
+        height: 0;
+        width: 100%;
+        position: relative;
+        overflow: hidden;
+        border-radius: 10px;
+        background: rgba(255,255,255,0.2);
+    }
+    .post-card__img img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        object-fit: cover;
+        object-position: center;
+        width: 100%;
+        max-width: 100%;
+        height: 100%;
+    }
+    .post-card__img a {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+    .post-card__title {
+        margin: 40px 0 30px;
+    }
+    .post-card__text {
+        color: #979797;
+        margin-bottom: 40px;
+    }
+    .post-card__link {
+        font-weight: 700;
+        color: #ffd600;
+    }
+
+    @media (max-width: 768px) {
+        .post-card__title {
+            margin: 20px 0;
+        }
+        .post-card__text {
+            margin-bottom: 20px;
+        }
+    }
+</style>
