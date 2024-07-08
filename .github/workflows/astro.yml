@@ -14,7 +14,7 @@ on:
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -98,5 +98,5 @@ jobs:
         env:
           GH_PAT: ${{ secrets.GH_TOKEN }}
         run: |
-          git remote add pages https://$GH_PAT@github.com/${{ github.repository }}
+          git remote add pages https:// ${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
           git push pages pages --force
