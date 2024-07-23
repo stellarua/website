@@ -1,9 +1,10 @@
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 import { contentfulClient } from '../contentful/contentful';
 import { type Career } from '../contentful/types';
+import {locales} from './configData'
 
 export async function getStaticPaths() {
-  const locales = ['en-US', 'uk']; // Добавьте все нужные локали
+
   let paths:any = [];
 
   for (const locale of locales) {
@@ -19,8 +20,8 @@ export async function getStaticPaths() {
 
     paths = paths.concat(
       vacancies.map((vacancy) => ({
-        params: { lang: locale, vacancy },
-        props: { vacancy, locale },
+        params: { locale: locale === 'uk' ? 'uk-UA' : locale, vacancy },
+        props: { vacancy, locale: locale === 'uk' ? 'uk-UA' : locale },
       }))
     );
   }

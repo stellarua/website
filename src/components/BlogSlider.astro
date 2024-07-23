@@ -1,0 +1,59 @@
+<!-- ---
+const {sliderPhotos} = Astro.props
+---
+<div class="article-gallery">
+    <div class="swiper galleryMain">
+        <div class="swiper-wrapper">
+            {sliderPhotos?.map((entry: any) => 
+            <div class="swiper-slide">
+                <figure>
+                    <img
+                        src={entry?.fields.url}
+                    />
+                    <figcaption>
+                        {entry?.fields.title}
+                    </figcaption>
+                </figure>
+            </div>
+            )}
+
+        </div>
+    </div>
+    <div class="swiper galleryThumbs">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <figure>
+                    <img
+                        src="https://swiperjs.com/demos/images/nature-1.jpg"
+                    />
+                </figure>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        import Swiper from "swiper/bundle";
+        import "swiper/css/bundle";
+
+        const sswiper = new Swiper(".galleryThumbs", {
+            loop: true,
+            spaceBetween: 10,
+            slidesPerView: 1,
+            centeredSlides: true,
+            freeMode: true,
+            watchSlidesProgress: true,
+            breakpoints: {
+                768: {
+                    slidesPerView: 5,
+                }
+            }
+        });
+        new Swiper(".galleryMain", {
+            loop: true,
+            spaceBetween: 10,
+            thumbs: {
+                swiper: sswiper,
+            },
+        });
+    </script>
+</div> -->

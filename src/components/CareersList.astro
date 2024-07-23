@@ -3,10 +3,12 @@ import {getStaticPaths} from '../contentful/careers'
 import VacancyTab from '../layouts/VacancyTab.astro'
 
 const { paths } = await getStaticPaths();
-const currentLocale = Astro.params.lang; // Получите текущую локализацию из параметров маршрута
+const {lang} = Astro.params;
+const currentLang = lang || 'en-US';
 const vacancies = paths
-  .filter((path:any) => path.props.locale === currentLocale)
+  .filter((path:any) => path.props.locale === currentLang)
   .map((path:any) => path.props.vacancy);
+
 ---
 
 <div>
@@ -25,3 +27,11 @@ const vacancies = paths
         )
 }
 </div>
+
+<script type="module">
+    const tabBtns = document.querySelectorAll(".tab__btn");
+    tabBtns.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+        e.target.closest(".tab").classList.toggle("active");
+    });
+});

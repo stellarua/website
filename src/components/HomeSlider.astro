@@ -2,12 +2,17 @@
 import { contentfulClient } from "../contentful/contentful";
 import Arrow from "./Arrow.astro";
 import BannerSlide from "./BannerSlide.astro";
-import {type MainPageSlider} from "../contentful/types"
+import {type MainPageSlider} from '../contentful/types'
+import {getStaticPaths} from '../contentful/blogElements'
 
+const { paths } = await getStaticPaths();
+const {lang} = Astro.params;
 
-const {items} = await contentfulClient.getEntries<MainPageSlider>({
-  content_type: "mainPageSlider",
-});
+const currentLang = lang || 'en-US';
+const sliderArr: MainPageSlider['fields'][] = paths
+  .filter((path:any) => path.params.locale === currentLang && path.props.post?.featured)
+  .map((path:any) => path.props.post);
+
 
 
 ---
@@ -15,27 +20,16 @@ const {items} = await contentfulClient.getEntries<MainPageSlider>({
 <div id="homeSlider" class="swiper">
     <div class="swiper-wrapper" data-cursor="swipe">
         {
-            items.map((card:any) => (
+            sliderArr.map((card:any) => (
                 <BannerSlide
-                    title={card.fields.description}
+                    title={card.description}
                     link={'#'}
-                    image={card?.fields.sliderPhoto?.fields.file.url}
-                    description={card.fields.description}
+                    image={card?.photo?.fields.file.url}
+                    description={card.description}
                 />
             ))
         }
-        <!-- <BannerSlide
-            title=""
-            link="#"
-            image="/images/bannerSlider/1.png"
-            description="The war in Ukraine continues to have devastating consequences for the civilian population as humanitarian needs persist. The IRC is responding where we are needed most."
-        />
-        <BannerSlide
-            title=""
-            link="#"
-            image="/images/bannerSlider/1.png"
-            description="2 The war in Ukraine continues to have devastating consequences for the civilian population as humanitarian needs persist. The IRC is responding where we are needed most."
-        /> -->
+        
     </div>
     <div class="su-slider__arrows banner-arrows">
         <button class="btn su-slider__arrow banner__arrow prev">
@@ -47,9 +41,9 @@ const {items} = await contentfulClient.getEntries<MainPageSlider>({
     </div>
 </div>
 
-<script>
-    import Swiper from "swiper/bundle";
-    import "swiper/css/bundle";
+<script type="module">
+    import Swiper from 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.mjs';
+    
     new Swiper("#homeSlider", {
         slidesPerView: 1,
         spaceBetween: 60,

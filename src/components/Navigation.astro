@@ -1,7 +1,20 @@
+---
+import { getStaticPaths } from "../contentful/header";
+import type { TopMenuItems } from "../contentful/types";
+
+const { paths } = await getStaticPaths();
+const {lang} = Astro.params;
+
+const currentLang = lang || 'en-US';
+const headerElem: TopMenuItems['fields'][] = paths
+  .filter((path:any) => path.params.locale === currentLang)
+  .map((path:any) => path.props.element);
+
+ 
+
+---
+
 <ul class="menu">
-    <li class="menu__item"><a href="" class="menu__item-link">Team</a></li>
-    <li class="menu__item"><a href="" class="menu__item-link">Projects</a></li>
-    <li class="menu__item"><a href="" class="menu__item-link">Where we work</a></li>
-    <li class="menu__item"><a href="" class="menu__item-link">Our Mission</a></li>
+    {headerElem.map((entry:any) => <li class="menu__item"><a href={currentLang === 'en-US' ? entry.menuItemLink : `/${lang}${entry.menuItemLink}`} class="menu__item-link">{entry.menuItemTitle}</a></li>)}
 </ul>
 

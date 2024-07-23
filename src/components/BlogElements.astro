@@ -4,9 +4,11 @@ import { getStaticPaths } from "../contentful/blogElements";
 import type { BlogPost } from '../contentful/types';
 
 const { paths } = await getStaticPaths();
-const {lang} = Astro.params; // Получите текущую локализацию из параметров маршрута
+const {lang} = Astro.params;
+
+const currentLang = lang || 'en-US';
 const postsArr: BlogPost['fields'][] = paths
-  .filter((path:any) => path.props.locale === lang)
+  .filter((path:any) => path.params.locale === currentLang)
   .map((path:any) => path.props.post);
 
 interface Props {
@@ -26,7 +28,7 @@ const filteredPosts = arrLen ? postsArr.slice(0, arrLen) : postsArr;
       <PostCard
         image={imageUrl}
         title={title}
-        link={`/${lang}/blog/${slug}`}
+        link={lang ? `/${lang}/blog/${slug}` : `/blog/${slug}`}
         description={description}
       />
     );

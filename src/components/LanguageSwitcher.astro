@@ -1,35 +1,49 @@
 ---
 const {lang} = Astro.params
-
 ---
 
 <ul lang={lang} class="language-switcher">
-    <li id="uaBtn" class={lang === "uk" ? "active" : ""}>UA</li>
-    <li id="enBtn" class={lang === "en-US" ? "active" : ""}>ENG</li>
+    <li id="uaBtn" class={lang === "uk-UA" ? "active" : ""}>UA</li>
+    <li id="enBtn" class={!lang ? "active" : ""}>ENG</li>
 </ul>
 
-<script>
-    const lang=  document.querySelector('ul')
-    const buttons = document.querySelectorAll('li');
-  
-    const changeLang = (newLang: string) => {
-    const url = new URL(window.location.href);
-    url.pathname = url.pathname.replace(`/${lang?.lang}`, `/${newLang}`);
-    window.location.href = url.toString();
-  };
+<script is:inline>
+    if (typeof languageSwitcher === 'undefined') {
+        const languageSwitcher = document.querySelector('ul');
+        const buttons = document.querySelectorAll('li');
 
-    buttons.forEach((button) => {
-        if (button.id === 'uaBtn') {
-            button.addEventListener('click', () => {
-                changeLang('uk')
-            });
-        } else if (button.id === 'enBtn') {
-            button.addEventListener('click', () => {
-                changeLang('en-US')
-            });
-        }
-    });
-  </script>
+        const changeLang = (newLang) => {
+            const url = new URL(window.location.href);
+            const currentLang = languageSwitcher?.getAttribute('lang');
+
+            if (newLang) {
+                if (currentLang) {
+                    url.pathname = url.pathname.replace(`/${currentLang}`, `/${newLang}`);
+                } else {
+                    url.pathname = `/${newLang}${url.pathname}`;
+                }
+            } else {
+                if (currentLang) {
+                    url.pathname = url.pathname.replace(`/${currentLang}`, '');
+                }
+            }
+
+            window.location.href = url.toString();
+        };
+
+        buttons.forEach((button) => {
+            if (button.id === 'uaBtn') {
+                button.addEventListener('click', () => {
+                    changeLang('uk-UA');
+                });
+            } else if (button.id === 'enBtn') {
+                button.addEventListener('click', () => {
+                    changeLang('');
+                });
+            }
+        });
+    }
+</script>
 
 <style>
     .language-switcher {

@@ -1,26 +1,24 @@
 ---
-import BlogPostLayout from '../../../layouts/BlogPostLayout.astro';
-import { contentfulClient } from '../../../contentful/contentful';
+import { BLOCKS } from '@contentful/rich-text-types';
+import BlogPostLayout from '../../layouts/BlogPostLayout.astro';
+import { contentfulClient } from '../../contentful/contentful';
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
-import {type BlogPost} from "../../../contentful/types"
-import {locales, options} from "../../../contentful/configData"
+import {type BlogPost} from "../../contentful/types"
+import { options } from '../../contentful/configData';
+
 
 export async function getStaticPaths() {
-
-  let paths:  Array<{ params: { slug: string, lang: string }, props: any }> = [];
-
-  for (const locale of locales) {
+  
     const { items } = await contentfulClient.getEntries<BlogPost>({
       content_type: 'blogPost',
-      locale,
+      locale: 'en-US',
     });
 
-    
-    items.forEach((item: any) => {
+    const pages = items.map((item: any) => {
       const { photo, slug, firstText, secondText } = item.fields;
       const imgUrl = photo?.fields?.file?.url || '';
-      paths.push({
-        params: { slug, lang: locale === 'uk' ? 'uk-UA' : locale },
+      return {
+        params: { slug },
         props: {
           ...item.fields,
           //@ts-ignore
@@ -29,13 +27,13 @@ export async function getStaticPaths() {
           secondText: documentToHtmlString(secondText, options),
           photo: imgUrl,
           photoTitle: photo?.fields?.title,
-          sliderPhotos: item?.fields?.sliderPhotos,
+          sliderPhotos: item?.fields?.sliderPhotos
         },
-      });
+      };
     });
+    return pages
   }
-  return paths;
-}
+
 
 
 const props = Astro.props;

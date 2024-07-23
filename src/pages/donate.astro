@@ -1,43 +1,23 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import News from "../../components/News.astro";
-import {locales} from '../../contentful/configData'
-import type { DonatePage } from "../../contentful/types";
-import { contentfulClient } from "../../contentful/contentful";
-import Marquee from "../../components/Marquee.astro";
+import Layout from "../layouts/Layout.astro";
+import News from "../components/News.astro";
+import {getStaticPaths} from "../contentful/donatePage"
+import type { DonatePage } from "../contentful/types";
+import Marquee from "../components/Marquee.astro"
 
-export async function getStaticPaths() {
+const {paths} = await getStaticPaths()
+const {lang} = Astro.params;
 
-    let paths:any = [];
+const currentLang = lang || 'en-US';
+const pageElems: DonatePage['fields'][] = paths
+  .filter((path:any) => path.params.locale === currentLang)
+  .map((path:any) => path.props.element);
 
-    for (const locale of locales) {
-    const { items } = await contentfulClient.getEntries<DonatePage>({
-        content_type: 'donatePage',
-        locale,
-    });
-
-    
-    items.forEach((item: any) => {
-        paths.push({
-        params: { lang: locale === 'uk' ? 'uk-UA' : locale },
-        props: {
-            ...item.fields
-        },
-        });
-    });
-    }
-    return paths;
-}
-
-
-const props = Astro.props;
-
-const {title,firstText,howToDonate,secondText,forDonations,forForeignersButton,forLocalsButton,transferText}:any = props
+const {title,firstText,howToDonate,secondText,forDonations,forForeignersButton,forLocalsButton,transferText}:any = pageElems[0]
 
 let words = title?.split(' ');
 let firstWord = words.shift();
 let remainingWords = words.join(' ');
-
 
 ---
 

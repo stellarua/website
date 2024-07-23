@@ -6,7 +6,6 @@ import '../styles/global.css'
 
 
 const locale = Astro.params.locale;
-console.log(locale)
 const {headerType} = Astro.props
 ---
 <html lang={locale}>
@@ -15,7 +14,7 @@ const {headerType} = Astro.props
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-        <title>Astro</title>
+        <title>StellarUA</title>
 
         <!-- Font preloads -->
         <link rel="preload" href="/fonts/e-ukraine-light.woff" as="font" type="font/woff" crossorigin />
@@ -27,14 +26,31 @@ const {headerType} = Astro.props
         <link rel="preload" href="/fonts/e-ukrainehead-light.woff" as="font" type="font/woff" crossorigin />
         <link rel="preload" href="/fonts/e-ukrainehead-bold.woff" as="font" type="font/woff" crossorigin />
         <script src="https://static.form-data.com/js/form-data-tools.v1.min.js"></script>
-	
+  
     </head>
 	<body>
         <Header headerType={headerType}/>
 		<slot />
         <Footer/>
-        <script> 
-            import "../scripts/menu.js";
+        <script type="module"> 
+            document.querySelector('.hamburger').addEventListener('click', () => {
+    document.querySelector('.nav-links').classList.toggle('expanded');
+    document.querySelector('.hamburger').classList.toggle('active');
+    document.getElementById('header').classList.toggle('menu-open');
+});
+
+var prevScrollpos = window.screenY;
+var headerDiv = document.querySelector("header");
+
+window.onscroll = function () {
+    var currentScrollPos = window.scrollY;
+    if (currentScrollPos < 45) {
+        headerDiv.classList.remove('collapsed');
+    }
+    else {
+        headerDiv.classList.add('collapsed');
+    }
+}
         </script>
 	</body>
 </html>

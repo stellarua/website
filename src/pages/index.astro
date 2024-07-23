@@ -1,18 +1,12 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import LanguageSwitcher from "../../components/LanguageSwitcher.astro";
-import HomeSlider from "../../components/HomeSlider.astro";
-import Arrow from "../../components/Arrow.astro";
-import ReviewsSlider from "../../components/ReviewsSlider.astro";
-import BlogElements from '../../components/BlogElements.astro'
-import {locales} from '../../contentful/configData'
-import Marquee from "../../components/Marquee.astro";
-
-export function getStaticPaths () {
- return locales.map((entry) => {return {params: {lang: entry === 'uk' ? 'uk-UA' : entry}}});
-}
-
-const {lang} = Astro.params
+import Layout from "../layouts/Layout.astro";
+import LanguageSwitcher from "../components/LanguageSwitcher.astro";
+import HomeSlider from "../components/HomeSlider.astro";
+import Arrow from "../components/Arrow.astro";
+import ReviewsSlider from "../components/ReviewsSlider.astro";
+import BlogElements from '../components/BlogElements.astro'
+import {locales} from '../contentful/configData'
+import Marquee from "../components/Marquee.astro"
 
 ---
 
@@ -101,7 +95,7 @@ const {lang} = Astro.params
 				<BlogElements arrLen={3}/>
 			</div>
 
-			<a href=`/${lang}/blog` class="btn-link yellow">
+			<a href=`/blog` class="btn-link yellow">
 				View all news
 				<Arrow />
 			</a>

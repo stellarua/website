@@ -2,13 +2,10 @@
 import Layout from "../../layouts/Layout.astro";
 import DonateNow from "../../components/DonateNow.astro";
 import News from "../../components/News.astro";
-
+import {locales} from '../../contentful/configData'
 
 export function getStaticPaths () {
- return [
-    {params: {lang: 'en-US'}},
-    {params: {lang: 'uk'}},
-  ];
+ return locales.map((entry) => {return {params: {lang: entry === 'uk' ? 'uk-UA' : entry}}});
 }
 
 ---
@@ -172,9 +169,36 @@ export function getStaticPaths () {
         </div>
     </section>
 
-    <script> 
-        import "../../scripts/iti-phone-input.js";
-        import "../../scripts/select.js";    
+    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/intlTelInput.min.js" defer></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/css/intlTelInput.css">
+    <script is:inline type="module">
+    document.addEventListener('DOMContentLoaded', function() {
+        const inp = document.querySelector("#inpTel");
+        intlTelInput(inp, {
+        initialCountry: "auto",
+        showSelectedDialCode: true,
+        geoIpLookup: callback => {
+            fetch("https://ipapi.co/json")
+            .then(res => res.json())
+            .then(data => callback(data.country_code))
+            .catch(() => callback("us"));
+        },
+        utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/utils.js"
+        });
+    });
+    </script>
+
+    <script src="https://unpkg.com/slim-select@latest/dist/slimselect.min.js" defer></script>
+    <link href="https://unpkg.com/slim-select@latest/dist/slimselect.css" rel="stylesheet" />
+    <script is:inline>
+        document.addEventListener('DOMContentLoaded', function() {
+            new SlimSelect({
+            select: '#inpSubject',
+            settings: {
+                showSearch: false,
+            }
+            });
+        });
     </script>
 </Layout>
 

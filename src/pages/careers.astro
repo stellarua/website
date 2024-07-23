@@ -1,13 +1,10 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import CareersList from "../../components/CareersList.astro"
-import DonateNow from "../../components/DonateNow.astro";
-import News from "../../components/News.astro";
-import {locales} from '../../contentful/configData'
+import Layout from "../layouts/Layout.astro";
+import CareersList from "../components/CareersList.astro"
+import DonateNow from "../components/DonateNow.astro";
+import News from "../components/News.astro";
+import {locales} from '../contentful/configData'
 
-export function getStaticPaths () {
- return locales.map((entry) => {return {params: {lang: entry === 'uk' ? 'uk-UA' : entry}}});
-}
 
 
 ---
