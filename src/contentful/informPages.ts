@@ -1,13 +1,13 @@
 import { contentfulClient } from '../contentful/contentful';
-import type { BlogPost } from '../contentful/types';
+import type { InformPages } from '../contentful/types';
 import {locales} from './configData'
 
 export async function getStaticPaths() {
   let paths: any = [];
 
   for (const locale of locales) {
-    const { items } = await contentfulClient.getEntries<BlogPost>({
-      content_type: 'blogPost',
+    const { items } = await contentfulClient.getEntries<InformPages>({
+      content_type: 'InformPages',
       locale,
     });
 

@@ -1,10 +1,13 @@
 ---
 import BlogElements from "../components/BlogElements.astro"
+
+import "swiper/css/bundle";
+import "../styles/reviewsSlider.css";
 ---
 
-<div id="newsSlider" class="swiper">
+<div id="newsSlider" class="swiper newsSlider">
     <div class="swiper-wrapper" data-cursor="swipe">
-        <BlogElements arrLen={2}/>
+        <BlogElements/>
     </div>
     <div class="su-slider__arrows news-arrows">
         <button class="btn su-slider__arrow news__arrow prev">
@@ -36,10 +39,10 @@ import BlogElements from "../components/BlogElements.astro"
     </div>
 </div>
 
-<script>
-    import Swiper from "swiper/bundle";
-    import "swiper/css/bundle";
-    new Swiper("#newsSlider", {
+<script is:inline type="module">
+    import Swiper from 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.mjs'
+    document.addEventListener('DOMContentLoaded', function() {
+    new Swiper(".newsSlider", {
         // Setup
         slidesPerView: 1,
         spaceBetween: 30,
@@ -56,6 +59,7 @@ import BlogElements from "../components/BlogElements.astro"
             },
         },
     });
+})
 </script>
 
 <style>

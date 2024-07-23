@@ -5,7 +5,7 @@ const {lang} = Astro.params
 
 ---
 
-<a href=`/${lang}/donate` class="btn btnDonate">
+<a href={lang ? `/${lang}/donate`:'/donate'} class="btn btnDonate">
     Donate
     <Arrow />
 </a>

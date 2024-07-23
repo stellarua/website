@@ -1,17 +1,8 @@
 ---
-import Layout from "../../../layouts/Layout.astro";
-import BlogElements from "../../../components/BlogElements.astro"
-import { getCollection } from "astro:content";
-import {locales} from '../../../contentful/configData'
-
-const posts = (await getCollection("blog")).sort(
-    (a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf(),
-);
+import Layout from "../../layouts/Layout.astro";
+import BlogElements from "../../components/BlogElements.astro"
 
 
-export function getStaticPaths () {
- return locales.map((entry) => {return {params: {lang: entry === 'uk' ? 'uk-UA' : entry}}});
-}
 ---
 
 <Layout>

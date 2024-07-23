@@ -1,26 +1,25 @@
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 import { contentfulClient } from '../contentful/contentful';
-import { type Testimonials } from '../contentful/types';
 import {locales} from './configData'
 
 export async function getStaticPaths() {
   let paths: any[] = [];
 
   for (const locale of locales) {
-    const { items } = await contentfulClient.getEntries<Testimonials>({
-      content_type: 'testimonials',
+    const { items } = await contentfulClient.getEntries({
+      content_type: 'marquee',
       locale,
     });
 
-    const reviews: any = items.map((entry) => ({ ...entry.fields }));
+    const marquee: any = items.map((entry) => ({ ...entry.fields }));
 
     paths = paths.concat(
-      reviews.map((review:any,) => ({
+      marquee.map((element:any,) => ({
         params: { locale: locale === 'uk' ? 'uk-UA' : locale },
-        props: { review, locale },
+        props: { element, locale },
       }))
     );
   }
-
+  
   return { paths };
 }

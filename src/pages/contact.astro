@@ -1,68 +1,96 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import CareersList from "../../components/CareersList.astro"
-import DonateNow from "../../components/DonateNow.astro";
-import News from "../../components/News.astro";
-import {locales} from '../../contentful/configData'
-
-export function getStaticPaths () {
- return locales.map((entry) => {return {params: {lang: entry === 'uk' ? 'uk-UA' : entry}}});
-}
-
+import Layout from "../layouts/Layout.astro";
+import DonateNow from "../components/DonateNow.astro";
+import News from "../components/News.astro";
 
 ---
 
 <Layout>
     <section class="hero">
         <div class="container text-center">
-            <h1 class="section__title">Join Us, Let's Grow Together</h1>
+            <h1 class="section__title">Ask for help</h1>
             <div class="section__text">
                 <p>
-                    Open positions are constantly being updated, don't hesitate
-                    to come take look if something's new. You can also send us
-                    your CV if you're interested for a job that is not listed.
+                    The “Stellar Ukraine” nonprofit foundation appreciates your
+                    interest. Once your application has been reviewed, your
+                    personal manager will contact you.
                 </p>
             </div>
         </div>
     </section>
-    <section class="careers-img">
+    <section class="contact-us">
         <div class="container">
-            <div class="careers-img__wrapper">
-                <img src="/images/team.png" alt="" />
-            </div>
-        </div>
-    </section>
-    <section class="vacancy text-center">
-        <div class="container">
-            <h2 class="section__title">Open positions</h2>
-            <div class="section__text">
-                <p>
-                    Dive into heartfelt testimonials and uplifting stories that
-                    highlight the real impact of our work.
-                </p>
-            </div>
-        </div>
-        <div class="container container-tabs">
-            <div class="vacancy-tabs">
-                <CareersList/>
-            </div>
-        </div>
-        <div class="container">
-            <div class="vacancy-text">
-                <p>
-                    If you didn't spot the perfect job this time, no worries!
-                    Follow us on social media for updates on new opportunities.
-                    Your unique skills might be just what we need.
-                </p>
-                <p>
-                    <strong
-                        >Feel free to reach out directly - we're always open to
-                        exploring how you can contribute to our team.</strong
-                    >
-                </p>
+            <div class="form-wrapper">
+                <form class="form" action="https://api.form-data.com/f/6wz6nrzy1o2dx5w8jtbavu" method="post">
+                    <div class="form-controls__grid">
+                        <div class="form-control">
+                            <label for="inpName">Your name</label>
+                            <input
+                                class="form-control__inp"
+                                id="inpName"
+                                name="name"
+                                type="text"
+                                placeholder="Enter your full name"
+                            />
+                        </div>
+                        <div class="form-control">
+                            <label for="inpMail">Your email</label>
+                            <input
+                                class="form-control__inp"
+                                id="inpMail"
+                                name="email"
+                                type="text"
+                                placeholder="Enter your email address"
+                            />
+                        </div>
+                        <div class="form-control">
+                            <label for="inpSubject"
+                                >What you are interested</label
+                            >
+                            <select
+                                class="form-control__inp form-control__select"
+                                id="inpSubject"
+                                name="subject"
+                            >
+                                <option value="Relocation">Relocation</option>
+                                <option value="Medical supplement"
+                                    >Medical supplement</option
+                                >
+                                <option value="Financial issues"
+                                    >Financial issues</option
+                                >
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-control">
+                            <label for="inpTel">Your phone</label>
+                            <input
+                                class="form-control__inp"
+                                id="inpTel"
+                                name="phone"
+                                type="tel"
+                            />
+                        </div>
+                    </div>
+                    <div class="form-control">
+                        <label for="inpMessage">Message</label>
+                        <textarea
+                            class="form-control__inp form-control__textarea"
+                            id="inpMessage"
+                            name="message"
+                            placeholder="Enter your message"></textarea>
+                    </div>
+                    <button class="btn btn-submit" type="submit">Send</button>
+                    <div class="form-data-powered-by" data-formdata-lang="en" data-formdata-sitename="Super Store" data-formdata-theme="light"></div>
+                </form>
+                <script>
+                    // @ts-ignore
+                    _fd.scan()
+                </script>
             </div>
 
-            <div class="contacts">
+            <div class="contacts text-center">
+                <p>or you always can rich us via&nbsp;phone, email or Instagram</p>
                 <a
                     href="mailto:volunteer@stellarua.org"
                     class="social-link social-link--mob"
@@ -114,7 +142,6 @@ export function getStaticPaths () {
                 <a href="tel:+380938912989" class="phone-link social-link--mob"
                     >+38 (093) 891 29 89</a
                 >
-                <p class="address">UA 79000 Lviv, Chervonoj Kalyny ave., 58</p>
             </div>
         </div>
     </section>
@@ -137,16 +164,47 @@ export function getStaticPaths () {
         </div>
     </section>
 
+    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/intlTelInput.min.js" defer></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/css/intlTelInput.css">
+    <script is:inline type="module">
+    document.addEventListener('DOMContentLoaded', function() {
+        const inp = document.querySelector("#inpTel");
+        intlTelInput(inp, {
+        initialCountry: "auto",
+        showSelectedDialCode: true,
+        geoIpLookup: callback => {
+            fetch("https://ipapi.co/json")
+            .then(res => res.json())
+            .then(data => callback(data.country_code))
+            .catch(() => callback("us"));
+        },
+        utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/utils.js"
+        });
+    });
+    </script>
 
-
+    <script src="https://unpkg.com/slim-select@latest/dist/slimselect.min.js" defer></script>
+    <link href="https://unpkg.com/slim-select@latest/dist/slimselect.css" rel="stylesheet" />
+    <script is:inline>
+        document.addEventListener('DOMContentLoaded', function() {
+            new SlimSelect({
+            select: '#inpSubject',
+            settings: {
+                showSearch: false,
+            }
+            });
+        });
+    </script>
 </Layout>
+
+
 
 <style>
     .hero {
         background: #073abe;
         color: #fff;
-        padding: 114px 0 110px;
-        margin-bottom: -80px;
+        padding: 114px 0 60px;
+        
     }
     .hero .container {
         max-width: 860px;
@@ -168,51 +226,18 @@ export function getStaticPaths () {
     .hero .section__text p:last-child {
         margin-bottom: 0;
     }
-    .careers-img {
-        margin-bottom: 30px;
-    }
-    .careers-img__wrapper {
-        padding-top: 50%;
-        height: 0;
-        position: relative;
-        border-radius: 10px;
-        overflow: hidden;
-    }
-    .careers-img__wrapper img {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        width: 100%;
-        max-width: 100%;
-        height: 100%;
-        max-height: 100%;
-        object-fit: cover;
-        object-position: center;
+
+    .contact-us {
+        padding-top: 30px;
     }
 
-    .vacancy-tabs {
-        margin: 30px auto 30px;
-        box-shadow: 0px 4px 58.5px 0px #d6d6d6;
+    .contact-us .container {
+        max-width: 760px;
     }
-    .vacancy .container {
-        max-width: 670px;
-    }
-    .vacancy .container-tabs {
-        max-width: 100%;
-        /* overflow: hidden; */
-        padding: 0;
-    }
-    .vacancy .section__text {
-        max-width: 487px;
-        margin: 0 auto;
-    }
-    .vacancy-text {
-        color: #a18458;
-        max-width: 487px;
+
+    .contacts p {
+        max-width: 300px;
         margin: 0 auto 30px;
-        font-size: 14px;
     }
     .social-link {
         display: inline-flex;
@@ -255,6 +280,7 @@ export function getStaticPaths () {
     @media (min-width: 769px) {
         .hero {
             padding: 195px 0 140px;
+            margin-bottom: -80px;
         }
         .hero h1 {
             font-size: 40px;
@@ -263,14 +289,23 @@ export function getStaticPaths () {
             font-size: 24px;
             line-height: 1.5em;
         }
-        .careers-img {
-            margin-bottom: 60px;
-        }
-        .vacancy-text {
-            margin: 0 auto 60px;
-        }
         .contacts {
             margin-bottom: 60px;
+        }
+        .contact-us {
+            background-color: #fff;
+            border-radius: 10px;
+            max-width: 800px;
+            margin: auto;
+            
+        }
+        .form-controls__grid {
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .form-control__textarea {
+            height: 150px;
         }
         .news-wrapper::before {
             top: 60px;
@@ -286,15 +321,6 @@ export function getStaticPaths () {
             background: #414141;
             position: relative;
             z-index: 111;
-        }
-        .vacancy .container-tabs {
-            max-width: 670px;
-            overflow: unset;
-            padding: 0 30px;
-        }
-        .vacancy-tabs {
-            margin: 40px auto 60px;
-            border-radius: 10px;
         }
     }
 </style>

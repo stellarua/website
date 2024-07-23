@@ -14,6 +14,18 @@ export interface BlogPost {
     mainText: Document,
   }
 }
+export interface InformPages {
+  contentTypeId: "InformPages",
+  fields: {
+    title: EntryFieldTypes.Text,
+    description: EntryFieldTypes.Text,
+    pubDate: EntryFieldTypes.Date,
+    author: EntryFieldTypes.Text,
+    photo: Object,
+    slug: EntryFieldTypes.Text,
+    mainText: Document,
+  }
+}
 
 export interface MainPageSlider {
   contentTypeId: "mainPageSlider",
@@ -41,5 +53,25 @@ export interface Testimonials {
     testimonials: EntryFieldTypes.Text,
     userAvatar: Asset,
     filterTag: EntryFieldTypes.Text,
+  }
+}
+export interface TopMenuItems {
+  contentTypeId: "topMenuItems",
+  fields: {
+    menuItemTitle: EntryFieldTypes.Text,
+    menuItemLink: EntryFieldTypes.Text
+  }
+}
+export interface DonatePage { 
+  contentTypeId: "donatePage",
+  fields: {
+    title: EntryFieldTypes.Text,
+    firstText: EntryFieldTypes.Text,
+    howToDonate: EntryFieldTypes.Text,
+    secondText: EntryFieldTypes.Text,
+    forForeignersButton: EntryFieldTypes.Text,
+    forLocalsButton: EntryFieldTypes.Text,
+    forDonations: EntryFieldTypes.Text,
+    transferText: EntryFieldTypes.Text,
   }
 }

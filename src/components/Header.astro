@@ -18,7 +18,7 @@ const {lang} = Astro.params
     </div>
     <div id="header">
         <div class="container">
-            <a href=`/${lang}` class="logo">
+            <a href={lang ? `/${lang}`: `/`} class="logo">
                 <img src="/images/logo.svg" />
             </a>
             <Hamburger />

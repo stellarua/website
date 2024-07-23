@@ -4,12 +4,10 @@ import '../styles/article.css';
 import DonateNow from "../components/DonateNow.astro";
 import News from "../components/News.astro";
 import SocialShareBtns from "../components/SocialShareBtns.astro";
+import "swiper/css/bundle";
+import "../styles/reviewsSlider.css";
 
-import FormattedDate from "../components/FormattedDate.astro";
-
-
-
-const { title, description, pubDate, author, photo, photoTitle } = Astro.props;
+const { title, description, pubDate, author, photo, photoTitle, sliderPhotos } = Astro.props;
 
 ---
 
@@ -52,7 +50,7 @@ const { title, description, pubDate, author, photo, photoTitle } = Astro.props;
                 <figure>
                     <img
                         src={photo}
-                        alt="Photo: Mauricio Lima for The New York Times"
+                        alt=""
                     />
                     <figcaption>
                         {photoTitle}
@@ -64,9 +62,44 @@ const { title, description, pubDate, author, photo, photoTitle } = Astro.props;
         <div class="article-main">
             <div class="container">
                 <div class="rte">
-                    <slot/>
+                    <slot name="first"/>
                 </div>
+                <div class="article-gallery">
+                    <div class="swiper galleryMain">
+                        <div class="swiper-wrapper">
+                            {sliderPhotos?.map((entry: any) => 
+                            <div class="swiper-slide">
+                                <figure>
+                                    <img
+                                        src={entry?.fields?.file.url}
+                                    />
+                                    <figcaption>
+                                        {entry?.fields.title}
+                                    </figcaption>
+                                </figure>
+                            </div>
+                            )}
+                        </div>
+                    </div>
+                    <div class="swiper galleryThumbs">
+                        <div class="swiper-wrapper">
+                            {sliderPhotos?.map((entry: any) => 
+                                <div class="swiper-slide">
+                                    <figure>
+                                        <img
+                                            src={entry?.fields?.file.url}
+                                        />
+                                    </figure>
+                                </div>
+                                )}
+                        </div>
+                    </div>
 
+                    <!-- Initialize Swiper -->
+                </div>
+                <div class="rte">
+                    <slot name="second"/>
+                </div>
                 <div class="rte article-footer">
                     <SocialShareBtns />
         
@@ -81,8 +114,6 @@ const { title, description, pubDate, author, photo, photoTitle } = Astro.props;
                 </div>
             </div>
         </div>
-
-        
     </article>
     <DonateNow />
     <section class="news">
@@ -98,11 +129,36 @@ const { title, description, pubDate, author, photo, photoTitle } = Astro.props;
 
         <div class="news-wrapper">
             <div class="container">
-                <News />
+                <News/>
             </div>
         </div>
     </section>
 </Layout>
+
+<script type="module">
+    import Swiper from 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.mjs'
+
+    const sswiper = new Swiper(".galleryThumbs", {
+        loop: true,
+    spaceBetween: 10,
+    slidesPerView: 1,
+    centeredSlides: true,
+    freeMode: true,
+    watchSlidesProgress: true,
+    breakpoints: {
+        768: {
+            slidesPerView: 5,
+        }
+    }
+    });
+    new Swiper(".galleryMain", {
+    loop: true,
+    spaceBetween: 10,
+    thumbs: {
+        swiper: sswiper,
+    },
+    });
+</script>
 
 <script is:inline>
     const articleImgs = document.querySelectorAll('.rte img');

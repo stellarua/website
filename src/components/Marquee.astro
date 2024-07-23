@@ -1,0 +1,72 @@
+---
+import {getStaticPaths} from '../contentful/marquee'
+
+const { paths } = await getStaticPaths();
+const {lang} = Astro.params;
+
+const currentLang = lang || 'en-US';
+const marquee = paths
+  .filter((path:any) => path.params.locale === currentLang)
+  .map((path:any) => path.props.element);
+
+---
+<section class="numbers">
+    <p class="marquee">
+        {marquee.map((elem, id) => {return (<>{elem.title}{id % 2 === 0 ? <span class="blue"> / </span> : <span class="yellow"> / </span>}</>)})}
+        <span class="blue"></span>
+        <!-- 200 Visits of deoccupied regions <span class="blue">/</span> $52k Raised
+        for medical help <span class="yellow">/</span>
+        500 ton of humanitarian aid <span class="blue">/ </span> -->
+    </p>
+    <p class="marquee">
+        {marquee.map((elem, id) => <>{elem.title}{id % 2 !== 0 ? <span class="blue"> / </span> : <span class="yellow"> / </span>}</> )}
+        <span class="blue"></span>
+        <!-- 200 Visits of deoccupied regions <span class="yellow">/</span> $52k Raised
+        for medical help <span class="blue">/</span>
+        500 ton of humanitarian aid <span class="yellow">/ </span> -->
+    </p>
+</section>
+
+<style>
+    .numbers {
+		width: 100%;
+		display: flex;
+		white-space: nowrap;
+		overflow: hidden;
+		margin-bottom: 0;
+	}
+
+	.numbers .marquee {
+		font-size: 40px;
+		line-height: 1.6em;
+		font-weight: 700;
+		margin-right: 0.25em;
+
+		-webkit-animation: numbers-marquee 20s linear infinite;
+		-moz-animation: numbers-marquee 20s linear infinite;
+		-o-animation: numbers-marquee 20s linear infinite;
+		animation: numbers-marquee 20s linear infinite;
+	}
+    @media (min-width: 769px) {
+    .numbers {
+			margin-bottom: 40px;
+		}
+		.numbers .marquee {
+			font-size: 64px;
+            margin-bottom: 0;
+		}
+    }
+
+    @keyframes numbers-marquee {
+		0% {
+			-webkit-transform: translate3d(0, 0, 0);
+			-moz-transform: translate3d(0, 0, 0);
+			transform: translate3d(0, 0, 0);
+		}
+		100% {
+			-webkit-transform: translate3d(-100%, 0, 0);
+			-moz-transform: translate3d(-100%, 0, 0);
+			transform: translate3d(-100%, 0, 0);
+		}
+	}
+</style>
