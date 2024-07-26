@@ -62,6 +62,15 @@ export interface TopMenuItems {
     menuItemLink: EntryFieldTypes.Text
   }
 }
+
+export interface Services {
+  contentTypeId: "servecesItems",
+  fields: {
+    title: EntryFieldTypes.Text,
+    description: EntryFieldTypes.Text
+    icon: Asset
+  }
+}
 export interface DonatePage { 
   contentTypeId: "donatePage",
   fields: {
@@ -73,5 +82,39 @@ export interface DonatePage {
     forLocalsButton: EntryFieldTypes.Text,
     forDonations: EntryFieldTypes.Text,
     transferText: EntryFieldTypes.Text,
+  }
+}
+export interface Footer { 
+  contentTypeId: "footerMenu",
+  fields: {
+    internalName: EntryFieldTypes.Text,
+  pleaseHelpUsTo: EntryFieldTypes.Text,
+  getStronger: EntryFieldTypes.Text,
+  notForProfitOrganization: EntryFieldTypes.Text,
+  einNumber: EntryFieldTypes.Text,
+  termsAndConditions: EntryFieldTypes.Text,
+  termsAndConditionsLink: EntryFieldTypes.Text,
+  respectingYourPrivacy: EntryFieldTypes.Text,
+  respectingYourPrivacyLink: EntryFieldTypes.Text,
+  copyright: EntryFieldTypes.Text
+  }
+}
+export interface MainPage { 
+  contentTypeId: "mainPage",
+  fields: {
+    title: EntryFieldTypes.Text,
+  impactTitle: EntryFieldTypes.Text,
+  impactDescription: EntryFieldTypes.Text,
+  newsFeaturesTitle: EntryFieldTypes.Text,
+  newsFeaturesDescription: EntryFieldTypes.Text,
+  whatTheySaysTitle: EntryFieldTypes.Text,
+  whatTheySaysDescription: EntryFieldTypes.Text,
+  filterButtons: EntryFieldTypes.Text[],
+  partnershipTitle: EntryFieldTypes.Text,
+  partnershipDescriptionFirst: EntryFieldTypes.Text,
+  partnershipDescriptionSecond: EntryFieldTypes.Text,
+  letsWorkTogether: EntryFieldTypes.Text,
+  geography: EntryFieldTypes.Text,
+  geographyDescription: EntryFieldTypes.Text
   }
 }

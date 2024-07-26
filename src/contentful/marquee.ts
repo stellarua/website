@@ -1,4 +1,3 @@
-import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 import { contentfulClient } from '../contentful/contentful';
 import {locales} from './configData'
 
