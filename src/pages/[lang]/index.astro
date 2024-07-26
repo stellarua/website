@@ -7,19 +7,49 @@ import ReviewsSlider from "../../components/ReviewsSlider.astro";
 import BlogElements from '../../components/BlogElements.astro'
 import {locales} from '../../contentful/configData'
 import Marquee from "../../components/Marquee.astro";
+import Services from '../../components/Services.astro'
+import Partners from "../../components/Partners.astro";
+import { contentfulClient } from "../../contentful/contentful";
+import { type MainPage } from "../../contentful/types";
 
-export function getStaticPaths () {
- return locales.map((entry) => {return {params: {lang: entry === 'uk' ? 'uk-UA' : entry}}});
+
+export async function getStaticPaths() {
+
+let paths: any = [];
+
+for (const locale of locales) {
+  const { items } = await contentfulClient.getEntries<MainPage>({
+	content_type: 'mainPage',
+	locale,
+  });
+
+  
+  items.forEach((item: any) => {
+	paths.push({
+	  params: { lang: locale === 'uk' ? 'uk-UA' : locale },
+	  props: {
+		...item.fields
+	  },
+	});
+  });
+}
+return paths;
 }
 
+const props = Astro.props
+const {title, impactTitle,impactDescription,impactDescriptionLogistic,newsFeaturesTitle, newsFeaturesDescription, whatTheySaysTitle,whatTheySaysDescription, filterButtons, partnershipTitle, partnershipDescriptionFirst, partnershipDescriptionSecond, letsWorkTogether, geography, geographyDescription, medicineHelp, humanitarian, geoText} = props
+const geoArr: any[] = geoText
+
 const {lang} = Astro.params
+
+
 
 ---
 
 <Layout>
 	<section class="hero">
 		<div class="container">
-			<h1>Medical and psychological professionals of Stellar Ukraine</h1>
+			<h1>{title}</h1>
 			<div class="lang"><LanguageSwitcher /></div>
 		</div>
 	</section>
@@ -33,55 +63,17 @@ const {lang} = Astro.params
 	<section class="about">
 		<div class="container">
 			<div class="about__info">
-				<h2 class="section__title">Delivering lasting impact</h2>
+				<h2 class="section__title">{impactTitle}</h2>
 				<div class="section__text">
 					<p>
-						Charitable organization “Stellar Ukraine” aims to help
-						Kharkiv and other Ukrainian cities that are currently
-						suffering from the war.
+						{impactDescription}
 					</p>
 					<p>
-						We have a well-established logistics process and deliver
-						humanitarian aid to 40,000 people every day.
+						{impactDescriptionLogistic}
 					</p>
 				</div>
 			</div>
-			<div class="about__list">
-				<ul class="aims">
-					<li class="aims__item">
-						<img src="/images/serving.png" />
-						<h3>Serving</h3>
-						<p>
-							people whose lives have been upended by war,
-							conflict and natural disasters
-						</p>
-					</li>
-					<li class="aims__item">
-						<img src="/images/solving.png" />
-						<h3>Solving</h3>
-						<p>
-							refugees welcomed by the United States, helping them
-							to succeed and thrive
-						</p>
-					</li>
-					<li class="aims__item">
-						<img src="/images/helping.png" />
-						<h3>Helping</h3>
-						<p>
-							in countries where people don't have the support
-							they need to recover from crisis
-						</p>
-					</li>
-					<li class="aims__item">
-						<img src="/images/responding.png" />
-						<h3>Responding</h3>
-						<p>
-							within 72 hours, staying to help countries stabilize
-							and people rebuild their lives
-						</p>
-					</li>
-				</ul>
-			</div>
+			<Services/>
 		</div>
 	</section>
 
@@ -89,11 +81,10 @@ const {lang} = Astro.params
 
 	<section class="news">
 		<div class="container">
-			<h2 class="section__title">News & features</h2>
+			<h2 class="section__title">{newsFeaturesTitle}</h2>
 			<div class="section__text">
 				<p>
-					Discover the latest updates and inspiring stories showcasing
-					the positive impact of your support.
+					{newsFeaturesDescription}
 				</p>
 			</div>
 
@@ -102,7 +93,7 @@ const {lang} = Astro.params
 			</div>
 
 			<a href=`/${lang}/blog` class="btn-link yellow">
-				View all news
+				Переглянути всі новини
 				<Arrow />
 			</a>
 		</div>
@@ -110,44 +101,37 @@ const {lang} = Astro.params
 
 	<section class="reviews">
 		<div class="container">
-			<h2 class="section__title">What they says</h2>
+			<h2 class="section__title">{whatTheySaysTitle}</h2>
 			<div class="section__text">
 				<p>
-					Dive into heartfelt testimonials and uplifting stories that
-					highlight the real impact of our work.
+					{whatTheySaysDescription}
 				</p>
 			</div>
 		</div>
 
-		<ReviewsSlider />
+		<ReviewsSlider buttons={filterButtons}/>
 	</section>
 
 	<section class="partnership">
 		<div class="container">
 			<div class="partnership-info">
-				<h2 class="section__title">Partnership</h2>
+				<h2 class="section__title">{partnershipTitle}</h2>
 				<div class="section__text">
 					<p>
-						Discover our invaluable partners who join forces with us
-						to create positive change.
+						{partnershipDescriptionFirst}
 					</p>
 					<p>
 						<strong>
-							Together, we build stronger communities and make a
-							lasting impact.
+							{partnershipDescriptionSecond}
 						</strong>
 					</p>
 				</div>
 				<a href="" class="btn-link blue">
-					Let's work together
+					{letsWorkTogether}
 					<Arrow />
 				</a>
 			</div>
-			<div class="partnership-stand">
-				<div class="partnership__img">
-					<img src="/images/partners.png" />
-				</div>
-			</div>
+			<Partners/>
 		</div>
 	</section>
 
@@ -190,30 +174,26 @@ const {lang} = Astro.params
 					</svg>
 				</div>
 				<div class="history">
-					<div class="medicine">Medicine help</div>
-					<div class="humanitarian">Humanitarian</div>
+					<div class="medicine">{medicineHelp}</div>
+					<div class="humanitarian">{humanitarian}</div>
 				</div>
 			</div>
-			<h2 class="section__title">Stellar Ukraine Geography</h2>
+			<h2 class="section__title">Stellar Ukraine {geography}</h2>
 			<div class="section__text">
 				<p>
-					Discover the latest updates and inspiring stories showcasing
-					the positive impact of your support.
+					{geographyDescription}
 				</p>
 			</div>
 			<div class="geo-numbers">
-				<div class="geo-numbers__item">
-					<div class="geo-numbers__num yellow">200</div>
-					<p>Visits of deoccupied regions</p>
-				</div>
-				<div class="geo-numbers__item">
-					<div class="geo-numbers__num yellow">$52k</div>
-					<p>Raised for medical help</p>
-				</div>
-				<div class="geo-numbers__item">
-					<div class="geo-numbers__num yellow">500</div>
-					<p>ton of humanitarian aid</p>
-				</div>
+				{geoArr?.map((entry) => {
+					const textArr = entry.split('|')
+					return (
+						<div class="geo-numbers__item">
+							<div class="geo-numbers__num yellow">{textArr[0]}</div>
+							<p>{textArr[1]}</p>
+						</div>		
+					)
+				})}
 			</div>
 			<a
 				href="mailto:volunteer@stellarua.org"

@@ -6,7 +6,11 @@
 //     description: string;
 // }
 
+const {lang} = Astro.params
+
 const { title, link, image, description } = Astro.props;
+
+const currentLang = lang || 'en-US';
 ---
 
 <div class="swiper-slide post-card">
@@ -16,7 +20,7 @@ const { title, link, image, description } = Astro.props;
     </div>
     <h3 class="post-card__title">{title}</h3>
     <div class="post-card__text">{description}</div>
-    <a href={link} class="post-card__link">Read Article</a>
+    <a href={link} class="post-card__link">{currentLang === 'en-US' ? "Read Article" : "Читати статтю" }</a>
 </div>
 
 <style>

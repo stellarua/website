@@ -2,11 +2,11 @@
 import Arrow from "./Arrow.astro"
 
 const {lang} = Astro.params
-
+const currentLang = lang || 'en-US';
 ---
 
 <a href={lang ? `/${lang}/donate`:'/donate'} class="btn btnDonate">
-    Donate
+    {currentLang === 'en-US' ? "Donate": "Пожертвувати"}
     <Arrow />
 </a>
 

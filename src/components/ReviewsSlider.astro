@@ -7,9 +7,12 @@ import "swiper/css/bundle";
 import "../styles/reviewsSlider.css";
 
 
-const { paths } = await getStaticPaths();
 const {lang} = Astro.params;
-const currentLang = lang || 'en-US';  // Если lang не определен, используем 'en-US' по умолчанию
+const currentLang = lang || 'en-US';
+
+const {buttons} = Astro.props
+
+const { paths } = await getStaticPaths();
 
 const reviewsArr: Testimonials['fields'][] = paths
   .filter((path) => path.params.locale === currentLang)
@@ -20,9 +23,7 @@ const reviewsArr: Testimonials['fields'][] = paths
 <div class="reviews-wrapper">
     <div class="reviews-controls container">
         <div class="reviews-filter">
-            <button class="btn reviews-filter__btn">Refugees</button>
-            <button class="btn reviews-filter__btn">Business</button>
-            <button class="btn reviews-filter__btn">Militaries</button>
+            {buttons.map((entry:any) => <button class="btn reviews-filter__btn">{entry}</button>)}
         </div>
         <div class="su-slider__arrows reviews-arrows">
             <button class="btn su-slider__arrow reviews__arrow prev">
@@ -53,6 +54,18 @@ const reviewsArr: Testimonials['fields'][] = paths
         </div>
     </div>
 </div>
+
+<style>
+    .reviews-filter {
+        display: flex;
+        gap:3px
+    }
+    @media (max-width: 768px) {
+        .reviews-filter {
+            display: block;
+        }
+    }
+</style>
 
 <script type="module">
     import Swiper from 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.mjs';

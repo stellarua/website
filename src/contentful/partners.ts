@@ -1,20 +1,19 @@
 import { contentfulClient } from '../contentful/contentful';
-import { type TopMenuItems } from '../contentful/types';
 import {locales} from './configData'
 
 export async function getStaticPaths() {
   let paths: any[] = [];
 
   for (const locale of locales) {
-    const { items } = await contentfulClient.getEntries<TopMenuItems>({
-      content_type: 'topMenuItems',
+    const { items } = await contentfulClient.getEntries({
+      content_type: 'partners',
       locale,
     });
 
-    const headerElem: any = items.map((entry) => ({ ...entry.fields }));
+    const partners: any = items.map((entry) => ({ ...entry.fields }));
 
     paths = paths.concat(
-      headerElem.map((element:any,) => ({
+      partners.map((element:any,) => ({
         params: { locale: locale === 'uk' ? 'uk-UA' : locale },
         props: { element, locale },
       }))

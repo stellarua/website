@@ -6,13 +6,20 @@ import LanguageSwitcher from "./LanguageSwitcher.astro";
 
 const {headerType} = Astro.props;
 const {lang} = Astro.params
+const currentLang = lang || 'en-US';
 ---
 
 <header class={headerType}>
     <div id="announcement-bar">
         <div class="container">
             <span></span>
-            <p>Help us save people and make Ukrainian sky peaceful again</p>
+            {
+                currentLang === 'uk-UA'
+                ? 
+                <p>Допоможіть нам врятувати людей та повернути мирне небо над Україною</p>
+                :
+                <p>Help us save people and make Ukrainian sky peaceful again</p>
+            }
             <a href="mailto:volunteer@stellarua.org">volunteer@stellarua.org</a>
         </div>
     </div>

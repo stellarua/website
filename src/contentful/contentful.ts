@@ -1,4 +1,4 @@
-import contentful, {type EntryFieldTypes, type Asset} from "contentful";
+import contentful from "contentful";
 
 
 export const contentfulClient = contentful.createClient({
