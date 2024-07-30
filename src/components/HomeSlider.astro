@@ -13,9 +13,8 @@ const sliderArr: MainPageSlider['fields'][] = paths
   .filter((path:any) => path.params.locale === currentLang && path.props.post?.featured)
   .map((path:any) => path.props.post);
 
-
-
 ---
+
 
 <div id="homeSlider" class="swiper">
     <div class="swiper-wrapper" data-cursor="swipe">
@@ -41,10 +40,12 @@ const sliderArr: MainPageSlider['fields'][] = paths
     </div>
 </div>
 
-<script type="module">
+<script type="module" define:vars={{ sliderArr }}>
     import Swiper from 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.mjs';
     
-    new Swiper("#homeSlider", {
+    const textDiv = document.getElementById('titleSlide');
+
+    const swiper = new Swiper("#homeSlider", {
         slidesPerView: 1,
         spaceBetween: 60,
         // effect: 'fade',
@@ -55,7 +56,16 @@ const sliderArr: MainPageSlider['fields'][] = paths
             nextEl: ".banner__arrow.next",
             prevEl: ".banner__arrow.prev",
         },
+        hashNavigation: true,
+        on: {
+            init: function (entry) {
+                textDiv.textContent = sliderArr[entry.realIndex].title;
+            },
+        },
     });
+    swiper.on('slideChange', () => {
+        textDiv.textContent = sliderArr[swiper.realIndex].title;
+    })
 </script>
     
 <style>
