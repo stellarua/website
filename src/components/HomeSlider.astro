@@ -22,7 +22,7 @@ const sliderArr: MainPageSlider['fields'][] = paths
             sliderArr.map((card:any) => (
                 <BannerSlide
                     title={card.description}
-                    link={'#'}
+                    link={lang ? card.isNews ? `/${lang}/news/${card.slug}` : `/${lang}/projects/${card.slug}`  : card.isNews ? `/news/${card.slug}` : `/projects/${card.slug}`}
                     image={card?.photo?.fields.file.url}
                     description={card.description}
                 />

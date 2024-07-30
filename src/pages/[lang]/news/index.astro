@@ -4,9 +4,6 @@ import BlogElements from "../../../components/BlogElements.astro"
 import { getCollection } from "astro:content";
 import {locales} from '../../../contentful/configData'
 
-const posts = (await getCollection("blog")).sort(
-    (a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf(),
-);
 
 
 export function getStaticPaths () {
@@ -24,7 +21,7 @@ export function getStaticPaths () {
         <section>
             <div class="container">
                 <div class="articles">
-                    <BlogElements/>
+                    <BlogElements news={true}/>
                 </div>
             </div>
         </section>

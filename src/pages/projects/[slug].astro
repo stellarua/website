@@ -1,5 +1,4 @@
 ---
-import { BLOCKS } from '@contentful/rich-text-types';
 import BlogPostLayout from '../../layouts/BlogPostLayout.astro';
 import { contentfulClient } from '../../contentful/contentful';
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
@@ -15,23 +14,23 @@ export async function getStaticPaths() {
     });
 
     const pages = items
-      .filter((item) => item.fields.isNews)
-      .map((item: any) => {
-      const { photo, slug, firstText, secondText } = item.fields;
-      const imgUrl = photo?.fields?.file?.url || '';
-      return {
-        params: { slug },
-        props: {
-          ...item.fields,
-          //@ts-ignore
-          firstText: documentToHtmlString(firstText, options),
-          //@ts-ignore
-          secondText: documentToHtmlString(secondText, options),
-          photo: imgUrl,
-          photoTitle: photo?.fields?.title,
-          sliderPhotos: item?.fields?.sliderPhotos
-        },
-      };
+        .filter((item) => !item.fields.isNews)
+        .map((item: any) => {
+        const { photo, slug, firstText, secondText, isNews } = item.fields;
+        const imgUrl = photo?.fields?.file?.url || '';
+        return {
+            params: { slug },
+            props: {
+            ...item.fields,
+            //@ts-ignore
+            firstText: documentToHtmlString(firstText, options),
+            //@ts-ignore
+            secondText: documentToHtmlString(secondText, options),
+            photo: imgUrl,
+            photoTitle: photo?.fields?.title,
+            sliderPhotos: item?.fields?.sliderPhotos
+            },
+        };
     });
     return pages
   }

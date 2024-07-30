@@ -13,23 +13,51 @@ const postsArr: BlogPost['fields'][] = paths
 
 interface Props {
   arrLen?: number;
+  news?: boolean;
+  showAll?: boolean
 }
 
-const { arrLen } = Astro.props;
+const { arrLen, news, showAll } = Astro.props;
 const filteredPosts = arrLen ? postsArr.slice(0, arrLen) : postsArr;
+
 
 ---
 
 {filteredPosts.map((entry:any) => {
-    const { title, description, slug, photo } = entry;
-    const imageUrl = photo?.fields?.file?.url || '';
-  
-    return (
-      <PostCard
-        image={imageUrl}
-        title={title}
-        link={lang ? `/${lang}/news/${slug}` : `/news/${slug}`}
-        description={description}
-      />
-    );
+  if (!arrLen) {
+    if (entry?.isNews === news) {
+      const { title, description, slug, photo, isNews } = entry;
+      const imageUrl = photo?.fields?.file?.url || '';
+      return (
+        <PostCard
+          image={imageUrl}
+          title={title}
+          link={lang ? isNews ? `/${lang}/news/${slug}` : `/${lang}/projects/${slug}`  : isNews ? `/news/${slug}` : `/projects/${slug}`}
+          description={description}
+        />
+      );
+    } else if (showAll) {
+      const { title, description, slug, photo, isNews } = entry;
+      const imageUrl = photo?.fields?.file?.url || '';
+      return (
+        <PostCard
+          image={imageUrl}
+          title={title}
+          link={lang ? isNews ? `/${lang}/news/${slug}` : `/${lang}/projects/${slug}`  : isNews ? `/news/${slug}` : `/projects/${slug}`}
+          description={description}
+        />
+      )
+    }
+  } else {
+      const { title, description, slug, photo, isNews } = entry;
+      const imageUrl = photo?.fields?.file?.url || '';
+      return (
+        <PostCard
+          image={imageUrl}
+          title={title}
+          link={lang ? isNews ? `/${lang}/news/${slug}` : `/${lang}/projects/${slug}`  : isNews ? `/news/${slug}` : `/projects/${slug}`}
+          description={description}
+        />
+      )
+  }
   })}

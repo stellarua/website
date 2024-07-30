@@ -12,6 +12,7 @@ export interface BlogPost {
     photo: Object,
     slug: EntryFieldTypes.Text,
     mainText: Document,
+    isNews: boolean
   }
 }
 export interface InformPages {
