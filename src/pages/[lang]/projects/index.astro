@@ -1,21 +1,24 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import BlogElements from "../../components/BlogElements.astro"
+import Layout from "../../../layouts/Layout.astro";
+import BlogElements from "../../../components/BlogElements.astro"
+import { getCollection } from "astro:content";
+import {locales} from '../../../contentful/configData'
 
-
+export function getStaticPaths () {
+ return locales.map((entry) => {return {params: {lang: entry === 'uk' ? 'uk-UA' : entry}}});
+}
 ---
 
 <Layout>
     <main>
         <section class="hero">
             <div class="container">
-                <h1>News & Features</h1>
-            </div>
+                <h1>Проєкти</h1>
         </section>
         <section>
             <div class="container">
                 <div class="articles">
-                    <BlogElements news={true}/>
+                    <BlogElements news={false}/>
                 </div>
             </div>
         </section>
