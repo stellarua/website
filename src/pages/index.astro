@@ -29,7 +29,7 @@ const geoArr: any[] = geoText
 <Layout>
 	<section class="hero">
 		<div class="container">
-			<h1>{title}</h1>
+			<h1 id="titleSlide"></h1>
 			<div class="lang"><LanguageSwitcher /></div>
 		</div>
 	</section>
@@ -233,6 +233,18 @@ const geoArr: any[] = geoText
 
 
 <style>
+	#titleSLide {
+  transition: opacity 0.5s ease-in-out;
+}
+
+.fade-out {
+  opacity: 0;
+}
+
+.fade-in {
+  opacity: 1;
+}
+
 	.hero {
 		background: #073abe;
 		color: #fff;
