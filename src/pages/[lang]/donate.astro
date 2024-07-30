@@ -32,7 +32,7 @@ export async function getStaticPaths() {
 
 const props = Astro.props;
 
-const {title,firstText,howToDonate,secondText,forDonations,forForeignersButton,forLocalsButton,transferText}:any = props
+const {title,firstText,howToDonate,secondText,forDonations,forForeignersButton,forLocalsButton,transferText, ibanUsd, accountUsd, ibanEur, accountEur}:any = props
 
 let words = title?.split(' ');
 let firstWord = words.shift();
@@ -68,10 +68,10 @@ let remainingWords = words.join(' ');
                 </p>
             </div>
 
-            <div class="transfer-btns">
+            <!-- <div class="transfer-btns">
                 <button class="btn transfer__btn selected" data-target="foreigners">{forForeignersButton}</button>
                 <button class="btn transfer__btn" data-target="locals">{forLocalsButton}</button>
-            </div>
+            </div> -->
 
             <div class="transfer-note">
                 <p>{forDonations}</p>
@@ -95,11 +95,11 @@ let remainingWords = words.join(' ');
                         </div>
                         <div class="transfer-details__row">
                             <div class="transfer-details__title">IBAN</div>
-                            <div class="transfer-details__info">UA 223052990000026003021020382 <i class="icon-copy"></i></div>
+                            <div class="transfer-details__info">{ibanUsd}<i class="icon-copy"></i></div>
                         </div>
                         <div class="transfer-details__row">
                             <div class="transfer-details__title">ACCOUNT #</div>
-                            <div class="transfer-details__info">001-1-000080 <i class="icon-copy"></i></div>
+                            <div class="transfer-details__info">{accountUsd} <i class="icon-copy"></i></div>
                         </div>
                         <div class="divider"></div>
                         <div class="transfer-details__row">
@@ -107,11 +107,11 @@ let remainingWords = words.join(' ');
                         </div>
                         <div class="transfer-details__row">
                             <div class="transfer-details__title">IBAN</div>
-                            <div class="transfer-details__info">UA 223052990000026003021020382 <i class="icon-copy"></i></div>
+                            <div class="transfer-details__info">{ibanEur}<i class="icon-copy"></i></div>
                         </div>
                         <div class="transfer-details__row">
                             <div class="transfer-details__title">ACCOUNT #</div>
-                            <div class="transfer-details__info">001-1-000080 <i class="icon-copy"></i></div>
+                            <div class="transfer-details__info">{accountEur} <i class="icon-copy"></i></div>
                         </div>
                         <div class="divider"></div>
                         <div class="transfer-details__row">
