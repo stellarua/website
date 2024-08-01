@@ -3,6 +3,7 @@ import Layout from "../../../layouts/Layout.astro";
 import BlogElements from "../../../components/BlogElements.astro"
 import { getCollection } from "astro:content";
 import {locales} from '../../../contentful/configData'
+import LanguageSwitcher from "../../../components/LanguageSwitcher.astro";
 
 export function getStaticPaths () {
  return locales.map((entry) => {return {params: {lang: entry === 'uk' ? 'uk-UA' : entry}}});
@@ -12,8 +13,12 @@ export function getStaticPaths () {
 <Layout>
     <main>
         <section class="hero">
+            <div class="container lang-container">
+                <div class="lang"><LanguageSwitcher /></div>
+            </div>
             <div class="container">
                 <h1>Проєкти</h1>
+                </div>
         </section>
         <section>
             <div class="container">
@@ -60,7 +65,17 @@ export function getStaticPaths () {
 
         margin: 60px 0;
     }
+    .hero .lang-container {
+		display: flex;
+        flex-direction: row;
+		justify-content: flex-end;
 
+	}
+    @media (max-width: 769px) {
+        .hero .lang-container {
+		display: none;
+        }
+    }
     @media (min-width: 769px) {
         .hero {
             padding: 195px 0 140px;
