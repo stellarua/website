@@ -1,7 +1,13 @@
-<!-- AddToAny BEGIN -->
+---
+import {getStaticPaths} from '../contentful/socialMedia'
+
+const {props} = await getStaticPaths()
+
+
+---
 <div id="social-sharing">
     <div class="a2a_kit a2a_kit_size_32 a2a_default_style">
-        <a class="a2a_button_facebook"
+        <a class="a2a_button_facebook"  href={props.facebook} target="_blank"
             ><svg
                 width="24"
                 height="24"
@@ -14,7 +20,7 @@
                     fill="currentColor"></path>
             </svg></a
         >
-        <a class="a2a_button_x"
+        <a class="a2a_button_x" href={props.x} target="_blank"
             ><svg
                 width="24"
                 height="24"
@@ -27,7 +33,7 @@
                     fill="currentColor"></path>
             </svg></a
         >
-        <a class="a2a_button_threads"
+        <a class="a2a_button_threads" href={props.instagram} target="_blank"
             ><svg
                 width="24"
                 height="24"
@@ -46,7 +52,7 @@
                     fill="currentColor"></path>
             </svg></a
         >
-        <a class="a2a_button_linkedin">
+        <a class="a2a_button_linkedin" href={props.linkedin} target="_blank">
             <svg
                 width="24"
                 height="24"

@@ -119,3 +119,14 @@ export interface MainPage {
   geographyDescription: EntryFieldTypes.Text
   }
 }
+
+export interface SocialMedia {
+  contentTypeId: "socialLinks",
+  fields: {
+    title: EntryFieldTypes.Text,
+    instagram: EntryFieldTypes.Text,
+    x: EntryFieldTypes.Text,
+    linkedin: EntryFieldTypes.Text,
+    facebook: EntryFieldTypes.Text,
+  }
+}

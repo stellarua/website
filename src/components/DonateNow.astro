@@ -1,8 +1,22 @@
+---
+import {getStaticPaths} from '../contentful/donateNow'
+
+const { paths } = await getStaticPaths();
+const {lang} = Astro.params;
+
+const currentLang = lang || 'en-US';
+const donateNowElem = paths
+  .filter((path:any) => path.params.locale === currentLang)
+  .map((path:any) => path.props.element)[0];
+
+
+---
+
 <section class="donate">
     <div class="container">
         <div class="donate__content">
             <img src="/images/donate.png" alt="Please make a donate now">
-            <p>It is critical that we support people around Ukraine facing conflict and crises. <a href="/donate">Please make a donate now</a> to support the Stellar's life-changing work.</p>
+            <p>{donateNowElem.firstText} <br/><a href={lang ? `/${lang}/donate`:"/donate"}>{donateNowElem.linkText}</a> {donateNowElem.secondText}</p>
         </div>
     </div>
 </section>
