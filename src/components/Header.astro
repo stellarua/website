@@ -3,10 +3,17 @@ import Navigation from "./Navigation.astro";
 import Hamburger from "./Hamburger.astro";
 import BtnDonate from "./BtnDonate.astro";
 import LanguageSwitcher from "./LanguageSwitcher.astro";
+import {getStaticPaths} from '../contentful/announcementTopBar'
+import type { AnnouncementTopBar } from "../contentful/types";
 
 const {headerType} = Astro.props;
 const {lang} = Astro.params
 const currentLang = lang || 'en-US';
+const { paths } = await getStaticPaths();
+const announcement: AnnouncementTopBar['fields'][] = paths
+  .filter((path:any) => path.params.locale === currentLang)
+  .map((path:any) => path.props.element);
+
 ---
 
 <header class={headerType}>
@@ -14,11 +21,7 @@ const currentLang = lang || 'en-US';
         <div class="container">
             <span></span>
             {
-                currentLang === 'uk-UA'
-                ? 
-                <p>Допоможіть нам врятувати людей та повернути мирне небо над Україною</p>
-                :
-                <p>Help us save people and make Ukrainian sky peaceful again</p>
+               announcement[0].title
             }
             <a href="mailto:volunteer@stellarua.org">volunteer@stellarua.org</a>
         </div>

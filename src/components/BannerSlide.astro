@@ -1,4 +1,6 @@
 ---
+import {getStaticPaths} from '../contentful/bannerSlide'
+import type { BannerSlide } from '../contentful/types';
 interface Props {
     title: string;
     link: string;
@@ -7,6 +9,16 @@ interface Props {
 }
 
 const { title, link, image, description } = Astro.props;
+
+const {lang} = Astro.params
+
+const currentLang = lang || 'en-US';
+const { paths } = await getStaticPaths();
+
+const bannerSlideEl: BannerSlide['fields'][] = paths
+  .filter((path:any) => path.params.locale === currentLang)
+  .map((path:any) => path.props.element);
+
 ---
 
 <div class="swiper-slide banner-card">
@@ -15,7 +27,7 @@ const { title, link, image, description } = Astro.props;
     </div>
     <div class="banner-card__content">
         <div class="banner-card__text">{description}</div>
-        <a href={link} class="btn-link yellow banner-card__link">Read Article</a
+        <a href={link} class="btn-link yellow banner-card__link">{bannerSlideEl[0]?.buttonTitle}</a
         >
     </div>
 </div>
