@@ -130,3 +130,17 @@ export interface SocialMedia {
     facebook: EntryFieldTypes.Text,
   }
 }
+
+
+export interface AnnouncementTopBar {
+  contentTypeId: "announcementTopBar",
+  fields: {
+    title: EntryFieldTypes.Text,
+  }
+}
+export interface BannerSlide {
+  contentTypeId: "bannerSlide",
+  fields: {
+    buttonTitle: EntryFieldTypes.Text,
+  }
+}
